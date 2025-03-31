@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Navigation -->
+    <string name="map">Map</string>
+    <string name="landmarks">Places</string>
+    <string name="routes">Routes</string>
+    <string name="settings">Settings</string>
+    
+    <!-- Authorization -->
+    <string name="sign_out">Sign Out</string>
+    <string name="skip_login">Continue without Sign In</string>
+    <string name="login_description">Sign in with Google to sync settings</string>
+    <string name="sign_in_error">Sign In Error</string>
+    <string name="sign_in_cancelled">Authorization cancelled</string>
+    <string name="sign_in_success">Successfully signed in</string>
+    <string name="sign_in_failed">Sign in error: check your internet connection</string>
+    <string name="sign_in_init_error">Google Sign-In initialization error</string>
+    <string name="sign_in_processing_error">Error processing sign in</string>
+    <string name="sign_out_success">Successfully signed out</string>
+    
+    <!-- Account Settings -->
+    <string name="account_settings">Account</string>
+    <string name="google_sign_in">Sign in with Google</string>
+    <string name="google_sign_in_summary">Sync settings between devices</string>
+    
+    <!-- App Settings -->
+    <string name="app_settings">App Settings</string>
+    <string name="app_language">Interface Language</string>
+    <string name="tts_language">Voice Language</string>
+    <string name="theme">Theme</string>
+    <string name="voice">Voice</string>
+    <string name="light_theme">Light</string>
+    <string name="dark_theme">Dark</string>
+    
+    <!-- Landmarks -->
+    <string name="red_square">Red Square</string>
+    <string name="red_square_description">Red Square is the main square of Moscow, located between the Moscow Kremlin and Kitay-gorod. The square is a symbol of Russia and a venue for important state events.</string>
+    <string name="saint_basil">Saint Basil\'s Cathedral</string>
+    <string name="saint_basil_description">Saint Basil\'s Cathedral is an Orthodox church on Red Square, one of Russia\'s most recognizable symbols. The cathedral was built in 1555-1561 by order of Ivan the Terrible to commemorate the capture of Kazan.</string>
+    <string name="historical_center_route">Moscow Historical Center</string>
+    <string name="historical_center_description">The route through Moscow\'s historical center includes visits to the main attractions: Red Square and Saint Basil\'s Cathedral.</string>
+
+    <!-- Error messages -->
+    <string name="error_location_permission">Location access is required for map functionality</string>
+    <string name="error_network">Please check your internet connection</string>
+    <string name="error_loading">Error loading data</string>
+    <string name="error_app_start">Error starting application</string>
+    
+    <!-- Common -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="retry">Retry</string>
+    <string name="loading">Loading…</string>
+    <string name="no_data">No data</string>
+</resources> 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:title="@string/account_settings"
+        app:iconSpaceReserved="false">
+        
+        <Preference
+            android:key="google_sign_in"
+            android:title="@string/google_sign_in"
+            android:summary="@string/google_sign_in_summary"
+            app:iconSpaceReserved="false" />
+            
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/app_settings"
+        app:iconSpaceReserved="false">
+
+        <ListPreference
+            android:defaultValue="ru"
+            android:entries="@array/app_languages"
+            android:entryValues="@array/app_language_values"
+            android:key="app_language"
+            android:title="@string/app_language"
+            app:iconSpaceReserved="false"
+            android:layout="@layout/preference_custom_layout" />
+
+        <ListPreference
+            android:defaultValue="ru"
+            android:entries="@array/tts_languages"
+            android:entryValues="@array/tts_language_values"
+            android:key="tts_language"
+            android:title="@string/tts_language"
+            app:iconSpaceReserved="false"
+            android:layout="@layout/preference_custom_layout" />
+
+        <ListPreference
+            android:defaultValue="light"
+            android:entries="@array/themes"
+            android:entryValues="@array/theme_values"
+            android:key="theme"
+            android:title="@string/theme"
+            app:iconSpaceReserved="false"
+            android:layout="@layout/preference_custom_layout" />
+
+        <ListPreference
+            android:defaultValue="default"
+            android:entries="@array/voices"
+            android:entryValues="@array/voice_values"
+            android:key="voice"
+            android:title="@string/voice"
+            app:iconSpaceReserved="false"
+            android:layout="@layout/preference_custom_layout" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen> 

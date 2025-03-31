@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Cursor" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    </style>
+
+    <style name="Theme.AudioGuide" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary_dark_theme</item>
+        <item name="colorPrimaryVariant">@color/primary_variant_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+    </style>
+
+    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemTextColor">@color/primary_dark_theme</item>
+        <item name="itemIconTint">@color/primary_dark_theme</item>
+        <item name="itemTextAppearanceActive">@style/TextAppearance.App.BottomNavigation</item>
+        <item name="itemTextAppearanceInactive">@style/TextAppearance.App.BottomNavigation</item>
+        <item name="labelVisibilityMode">labeled</item>
+    </style>
+
+    <style name="TextAppearance.App.BottomNavigation" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">11sp</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">none</item>
+    </style>
+</resources>

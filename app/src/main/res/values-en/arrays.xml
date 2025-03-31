@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Languages -->
+    <string-array name="app_languages">
+        <item>Russian</item>
+        <item>English</item>
+    </string-array>
+    
+    <!-- TTS Languages -->
+    <string-array name="tts_languages">
+        <item>Russian</item>
+        <item>English</item>
+    </string-array>
+    
+    <!-- Themes -->
+    <string-array name="themes">
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+    
+    <!-- Voices -->
+    <string-array name="voices">
+        <item>Default</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+</resources> 

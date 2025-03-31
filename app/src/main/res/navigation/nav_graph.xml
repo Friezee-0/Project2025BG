@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navigation_map">
+
+    <fragment
+        android:id="@+id/navigation_map"
+        android:name="com.example.audioguide.MapFragment"
+        android:label="@string/map" />
+
+    <fragment
+        android:id="@+id/navigation_landmarks"
+        android:name="com.example.audioguide.LandmarksFragment"
+        android:label="@string/landmarks" />
+
+    <fragment
+        android:id="@+id/navigation_routes"
+        android:name="com.example.audioguide.RoutesFragment"
+        android:label="@string/routes" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.example.audioguide.SettingsFragment"
+        android:label="@string/settings" />
+
+</navigation> 
