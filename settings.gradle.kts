@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Cursor"
+rootProject.name = "AudioGuide"
 include(":app")
  

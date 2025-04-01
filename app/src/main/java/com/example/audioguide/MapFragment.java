@@ -24,8 +24,8 @@ public class MapFragment extends Fragment {
         Configuration.getInstance().load(getContext(), androidx.preference.PreferenceManager.getDefaultSharedPreferences(getContext()));
         landmarks = new ArrayList<>();
         // Добавляем достопримечательности
-        landmarks.add(new Landmark("Красная площадь", "Главная площадь Москвы", 55.7539, 37.6208));
-        landmarks.add(new Landmark("Собор Василия Блаженного", "Православный храм на Красной площади", 55.7525, 37.6231));
+        landmarks.add(new Landmark("1", "Красная площадь", "Главная площадь Москвы", 55.7539, 37.6208, ""));
+        landmarks.add(new Landmark("2", "Собор Василия Блаженного", "Православный храм на Красной площади", 55.7525, 37.6231, ""));
     }
 
     @Override

@@ -61,7 +61,7 @@ public class LandmarksAdapter extends RecyclerView.Adapter<LandmarksAdapter.View
 
         ViewHolder(View view) {
             super(view);
-            nameTextView = view.findViewById(R.id.landmark_name);
+            nameTextView = view.findViewById(R.id.landmark_title);
             descriptionTextView = view.findViewById(R.id.landmark_description);
             imageView = view.findViewById(R.id.landmark_image);
         }

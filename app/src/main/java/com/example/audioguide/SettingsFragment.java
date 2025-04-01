@@ -7,6 +7,10 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.tasks.Task;
+import androidx.annotation.Nullable;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
     private static final int RC_SIGN_IN = 9001;
@@ -50,7 +54,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         ListPreference ttsLanguagePref = findPreference("tts_language");
         if (ttsLanguagePref != null) {
             ttsLanguagePref.setOnPreferenceChangeListener((preference, newValue) -> {
-                settingsManager.setTTSLanguage((String) newValue);
+                settingsManager.setTtsLanguage((String) newValue);
                 return true;
             });
         }
@@ -104,23 +108,19 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == RC_SIGN_IN) {
-            try {
-                if (authManager.handleSignInResult(data)) {
-                    Toast.makeText(requireContext(), "Вход выполнен успешно", Toast.LENGTH_SHORT).show();
-                    Preference signInPref = findPreference("google_sign_in");
-                    if (signInPref != null) {
-                        updateSignInPreference(signInPref);
-                    }
-                } else {
-                    Toast.makeText(requireContext(), "Ошибка входа: проверьте подключение к интернету", Toast.LENGTH_SHORT).show();
-                }
-            } catch (Exception e) {
-                Toast.makeText(requireContext(), "Произошла ошибка при обработке входа", Toast.LENGTH_SHORT).show();
-            }
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            authManager.handleSignInResult(task);
+            updateUI();
+        }
+    }
+
+    private void updateUI() {
+        Preference signInPref = findPreference("google_sign_in");
+        if (signInPref != null) {
+            updateSignInPreference(signInPref);
         }
     }
 } 

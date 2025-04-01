@@ -45,15 +45,15 @@ public class LandmarkDetailDialog extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_landmark_detail, null);
 
-        TextView nameTextView = view.findViewById(R.id.landmark_name);
+        TextView nameTextView = view.findViewById(R.id.landmark_title);
         TextView descriptionTextView = view.findViewById(R.id.landmark_description);
         ImageView imageView = view.findViewById(R.id.landmark_image);
 
         nameTextView.setText(name);
         descriptionTextView.setText(description);
 
-        if (imageUrl != null && !imageUrl.isEmpty()) {
-            Glide.with(this)
+        if (imageUrl != null && !imageUrl.isEmpty() && getContext() != null) {
+            Glide.with(getContext())
                 .load(imageUrl)
                 .centerCrop()
                 .into(imageView);

@@ -22,7 +22,7 @@ public class AudioGuideManager implements LocationListener {
 
     private final Context context;
     private final LocationManager locationManager;
-    private final TextToSpeech textToSpeech;
+    private TextToSpeech textToSpeech;
     private final Map<String, Landmark> landmarks;
     private final Map<String, Boolean> playedLandmarks;
     private final SettingsManager settingsManager;
@@ -36,43 +36,50 @@ public class AudioGuideManager implements LocationListener {
 
         initializeLandmarks();
 
-        textToSpeech = new TextToSpeech(context, status -> {
+        TextToSpeech.OnInitListener initListener = status -> {
             if (status == TextToSpeech.SUCCESS) {
-                int result = textToSpeech.setLanguage(new Locale(settingsManager.getTtsLanguage()));
+                int result = textToSpeech.setLanguage(new Locale(settingsManager.getTTSLanguage()));
                 if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                     Log.e(TAG, "Language not supported");
                 }
             } else {
                 Log.e(TAG, "TTS initialization failed");
             }
-        });
+        };
+        
+        this.textToSpeech = new TextToSpeech(context, initListener);
     }
 
     private void initializeLandmarks() {
         landmarks.put("red_square", new Landmark(
+            "red_square",
             context.getString(R.string.red_square),
             context.getString(R.string.red_square_description),
-            55.7539, 37.6208));
+            55.7539, 37.6208, ""));
 
         landmarks.put("saint_basil", new Landmark(
+            "saint_basil",
             context.getString(R.string.saint_basil),
             context.getString(R.string.saint_basil_description),
-            55.7525, 37.6231));
+            55.7525, 37.6231, ""));
 
         landmarks.put("kremlin", new Landmark(
+            "kremlin",
             context.getString(R.string.kremlin),
             context.getString(R.string.kremlin_description),
-            55.7520, 37.6175));
+            55.7520, 37.6175, ""));
 
         landmarks.put("tretyakov", new Landmark(
+            "tretyakov",
             context.getString(R.string.tretyakov),
             context.getString(R.string.tretyakov_description),
-            55.7415, 37.6208));
+            55.7415, 37.6208, ""));
 
         landmarks.put("bolshoi", new Landmark(
+            "bolshoi",
             context.getString(R.string.bolshoi),
             context.getString(R.string.bolshoi_description),
-            55.7601, 37.6186));
+            55.7601, 37.6186, ""));
     }
 
     public void startLocationUpdates() {
@@ -116,10 +123,10 @@ public class AudioGuideManager implements LocationListener {
     private void playDescription(Landmark landmark) {
         if (textToSpeech != null) {
             textToSpeech.speak(
-                landmark.getTitle() + ". " + landmark.getDescription(),
+                landmark.getName() + ". " + landmark.getDescription(),
                 TextToSpeech.QUEUE_FLUSH,
                 null,
-                landmark.getTitle()
+                landmark.getName()
             );
         }
     }
@@ -140,23 +147,4 @@ public class AudioGuideManager implements LocationListener {
 
     @Override
     public void onProviderDisabled(String provider) {}
-
-    public static class Landmark {
-        private final String title;
-        private final String description;
-        private final double latitude;
-        private final double longitude;
-
-        public Landmark(String title, String description, double latitude, double longitude) {
-            this.title = title;
-            this.description = description;
-            this.latitude = latitude;
-            this.longitude = longitude;
-        }
-
-        public String getTitle() { return title; }
-        public String getDescription() { return description; }
-        public double getLatitude() { return latitude; }
-        public double getLongitude() { return longitude; }
-    }
 } 

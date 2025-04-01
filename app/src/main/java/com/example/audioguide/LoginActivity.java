@@ -5,9 +5,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
@@ -32,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Button skipButton = findViewById(R.id.skipButton);
         skipButton.setOnClickListener(v -> {
-            authManager.setGuestMode();
+            authManager.enableGuestMode();
             Toast.makeText(this, "Продолжаем без авторизации", Toast.LENGTH_SHORT).show();
             startMainActivity();
         });
@@ -53,26 +59,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == RC_SIGN_IN) {
-            try {
-                if (resultCode == RESULT_OK && data != null) {
-                    if (authManager.handleSignInResult(data)) {
-                        Toast.makeText(this, "Вход выполнен успешно", Toast.LENGTH_SHORT).show();
-                        startMainActivity();
-                    } else {
-                        Toast.makeText(this, "Ошибка входа: проверьте подключение к интернету", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Log.w(TAG, "Sign in cancelled by user: resultCode=" + resultCode);
-                    Toast.makeText(this, "Авторизация отменена", Toast.LENGTH_SHORT).show();
-                }
-            } catch (Exception e) {
-                Log.e(TAG, "Error in onActivityResult: " + e.getMessage());
-                Toast.makeText(this, "Произошла ошибка при обработке входа", Toast.LENGTH_SHORT).show();
-            }
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            authManager.handleSignInResult(task);
+            startMainActivity();
         }
     }
 

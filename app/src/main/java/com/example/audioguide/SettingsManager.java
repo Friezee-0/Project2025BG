@@ -29,7 +29,7 @@ public class SettingsManager {
     private void initTextToSpeech() {
         textToSpeech = new TextToSpeech(context, status -> {
             if (status == TextToSpeech.SUCCESS) {
-                setTTSLanguage(getTTSLanguage());
+                setTtsLanguage(getTTSLanguage());
             }
         });
     }
