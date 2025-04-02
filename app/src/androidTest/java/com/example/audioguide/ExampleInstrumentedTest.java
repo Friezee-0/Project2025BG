@@ -1,4 +1,4 @@
-package com.example.cursor;
+package com.example.audioguide;
 
 import android.content.Context;
 

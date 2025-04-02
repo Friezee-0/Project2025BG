@@ -3,15 +3,17 @@ package com.example.audioguide;
 public class Landmark {
     private String id;
     private String name;
-    private String description;
+    private String shortDescription;
+    private String fullDescription;
     private double latitude;
     private double longitude;
     private String imageUrl;
 
-    public Landmark(String id, String name, String description, double latitude, double longitude, String imageUrl) {
+    public Landmark(String id, String name, String shortDescription, String fullDescription, double latitude, double longitude, String imageUrl) {
         this.id = id;
         this.name = name;
-        this.description = description;
+        this.shortDescription = shortDescription;
+        this.fullDescription = fullDescription;
         this.latitude = latitude;
         this.longitude = longitude;
         this.imageUrl = imageUrl;
@@ -33,12 +35,20 @@ public class Landmark {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getShortDescription() {
+        return shortDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public String getFullDescription() {
+        return fullDescription;
+    }
+
+    public void setFullDescription(String fullDescription) {
+        this.fullDescription = fullDescription;
     }
 
     public double getLatitude() {

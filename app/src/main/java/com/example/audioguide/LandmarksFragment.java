@@ -30,7 +30,7 @@ public class LandmarksFragment extends Fragment implements LandmarksAdapter.OnLa
     public void onLandmarkClick(Landmark landmark) {
         LandmarkDetailDialog dialog = LandmarkDetailDialog.newInstance(
             landmark.getName(),
-            landmark.getDescription(),
+            landmark.getFullDescription(),
             landmark.getImageUrl()
         );
         dialog.show(getParentFragmentManager(), "landmark_detail");

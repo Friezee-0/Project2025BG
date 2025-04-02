@@ -1,4 +1,4 @@
-package com.example.cursor;
+package com.example.audioguide;
 
 import org.junit.Test;
 

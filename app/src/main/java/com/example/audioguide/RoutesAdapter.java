@@ -8,29 +8,34 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class RoutesAdapter extends RecyclerView.Adapter<RoutesAdapter.ViewHolder> {
-    private List<Route> routes;
-    private SettingsManager settingsManager;
+    private final List<Route> routes;
+    private final OnRouteClickListener listener;
 
-    public RoutesAdapter(List<Route> routes, SettingsManager settingsManager) {
+    public interface OnRouteClickListener {
+        void onRouteClick(Route route);
+    }
+
+    public RoutesAdapter(List<Route> routes, OnRouteClickListener listener) {
         this.routes = routes;
-        this.settingsManager = settingsManager;
+        this.listener = listener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(android.R.layout.simple_list_item_2, parent, false);
+            .inflate(R.layout.item_route, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Route route = routes.get(position);
-        holder.titleView.setText(route.getName());
-        holder.descriptionView.setText(route.getDescription());
+        holder.titleTextView.setText(route.getName());
+        holder.descriptionTextView.setText(route.getShortDescription());
+        
         holder.itemView.setOnClickListener(v -> {
-            if (settingsManager != null) {
-                settingsManager.speak(route.getDescription());
+            if (listener != null) {
+                listener.onRouteClick(route);
             }
         });
     }
@@ -41,13 +46,13 @@ public class RoutesAdapter extends RecyclerView.Adapter<RoutesAdapter.ViewHolder
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView titleView;
-        TextView descriptionView;
+        TextView titleTextView;
+        TextView descriptionTextView;
 
         ViewHolder(View view) {
             super(view);
-            titleView = view.findViewById(android.R.id.text1);
-            descriptionView = view.findViewById(android.R.id.text2);
+            titleTextView = view.findViewById(R.id.route_title);
+            descriptionTextView = view.findViewById(R.id.route_description);
         }
     }
 } 
