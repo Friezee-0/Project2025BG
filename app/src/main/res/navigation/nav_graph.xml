@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/navigation_map">
 
     <fragment
         android:id="@+id/navigation_map"
         android:name="com.example.audioguide.MapFragment"
-        android:label="@string/map" />
+        android:label="@string/map"
+        tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/navigation_landmarks"
         android:name="com.example.audioguide.LandmarksFragment"
-        android:label="@string/landmarks" />
+        android:label="@string/landmarks"
+        tools:layout="@layout/fragment_landmarks" />
 
     <fragment
         android:id="@+id/navigation_routes"
         android:name="com.example.audioguide.RoutesFragment"
-        android:label="@string/routes" />
+        android:label="@string/routes"
+        tools:layout="@layout/fragment_routes" />
 
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.example.audioguide.SettingsFragment"
-        android:label="@string/settings" />
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings" />
 
 </navigation> 

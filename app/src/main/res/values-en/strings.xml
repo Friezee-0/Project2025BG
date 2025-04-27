@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Audio Guide</string>
+    
     <!-- Navigation -->
     <string name="map">Map</string>
-    <string name="landmarks">Places</string>
+    <string name="landmarks">Landmarks</string>
     <string name="routes">Routes</string>
     <string name="settings">Settings</string>
     
     <!-- Authorization -->
     <string name="sign_out">Sign Out</string>
-    <string name="skip_login">Continue without Sign In</string>
+    <string name="skip_login">Continue without login</string>
     <string name="login_description">Sign in with Google to sync settings</string>
-    <string name="sign_in_error">Sign In Error</string>
+    <string name="sign_in_error">Sign in error</string>
     <string name="sign_in_cancelled">Authorization cancelled</string>
     <string name="sign_in_success">Successfully signed in</string>
     <string name="sign_in_failed">Sign in error: check your internet connection</string>
@@ -21,7 +23,7 @@
     <!-- Account Settings -->
     <string name="account_settings">Account</string>
     <string name="google_sign_in">Sign in with Google</string>
-    <string name="google_sign_in_summary">Sync settings between devices</string>
+    <string name="google_sign_in_summary">Sync settings across devices</string>
     
     <!-- App Settings -->
     <string name="app_settings">App Settings</string>
@@ -34,17 +36,26 @@
     
     <!-- Landmarks -->
     <string name="red_square">Red Square</string>
-    <string name="red_square_description">Red Square is the main square of Moscow, located between the Moscow Kremlin and Kitay-gorod. The square is a symbol of Russia and a venue for important state events.</string>
-    <string name="saint_basil">Saint Basil\'s Cathedral</string>
-    <string name="saint_basil_description">Saint Basil\'s Cathedral is an Orthodox church on Red Square, one of Russia\'s most recognizable symbols. The cathedral was built in 1555-1561 by order of Ivan the Terrible to commemorate the capture of Kazan.</string>
-    <string name="historical_center_route">Moscow Historical Center</string>
-    <string name="historical_center_description">The route through Moscow\'s historical center includes visits to the main attractions: Red Square and Saint Basil\'s Cathedral.</string>
+    <string name="red_square_description">Red Square is the main square of Moscow, located between the Moscow Kremlin and Kitay-gorod. The square appeared at the end of the 15th century when Ivan III ordered the demolition of all wooden buildings east of the Kremlin. The name "Red" means "beautiful" in Old Russian.\n\nArea: 23,100 m²\nLength: 330 m\nWidth: 70 m\n\nMain attractions:\n• St. Basil\'s Cathedral\n• Lenin\'s Mausoleum\n• GUM\n• State Historical Museum\n• Kazan Cathedral\n• Lobnoye Mesto</string>
+    <string name="red_square_short_description">Main square of Moscow, historical center of the city</string>
+    <string name="saint_basil">St. Basil\'s Cathedral</string>
+    <string name="saint_basil_description">St. Basil\'s Cathedral (Pokrovsky Cathedral) is an Orthodox church on Red Square, built in 1555–1561 by order of Ivan the Terrible in memory of the capture of Kazan.\n\nHeight: 65 m\nArea: 1,600 m²\n\nArchitectural features:\n• 9 churches on a single foundation\n• Unique domes of different shapes and colors\n• Rich interior decoration\n\nInteresting facts:\n• Initially, the temple was white and the domes were golden\n• The modern bright coloring appeared in the 17th century\n• According to legend, Ivan the Terrible blinded the architects so they could not build anything more beautiful</string>
+    <string name="saint_basil_short_description">Famous cathedral with colorful domes</string>
+    <string name="kremlin">Moscow Kremlin</string>
+    <string name="kremlin_description">The Moscow Kremlin is the oldest part of Moscow, the main socio-political and historical-artistic complex of the city.\n\nArea: 27.5 ha\nWall length: 2,235 m\nWall height: 5–19 m\n\nMain objects:\n• Assumption Cathedral (1475–1479)\n• Annunciation Cathedral (1484–1489)\n• Archangel Cathedral (1505–1508)\n• Ivan the Great Bell Tower (1505–1508)\n• Armory Chamber\n• Diamond Fund\n\nInteresting facts:\n• First fortifications appeared in 1156\n• Modern walls built in 1485–1495\n• 20 towers, each with its own history</string>
+    <string name="kremlin_short_description">Historical complex in the center of Moscow</string>
+    <string name="tretyakov">Tretyakov Gallery</string>
+    <string name="tretyakov_description">The State Tretyakov Gallery is the world\'s largest museum of Russian art.\n\nFounded: 1856\nCollection: over 180,000 works\n\nFamous paintings:\n• "The Appearance of Christ to the People" by A. Ivanov\n• "Bogatyrs" by V. Vasnetsov\n• "Morning in a Pine Forest" by I. Shishkin\n• "Girl with Peaches" by V. Serov\n\nExhibition sections:\n• Ancient Russian art\n• 18th century art\n• 19th century art\n• 20th century art\n\nPractical information:\n• Address: Lavrushinsky Lane, 10\n• Opening hours: Tue-Sun 10:00-21:00</string>
+    <string name="tretyakov_short_description">Largest museum of Russian art</string>
+    <string name="bolshoi">Bolshoi Theatre</string>
+    <string name="bolshoi_description">The State Academic Bolshoi Theatre of Russia is one of the largest in Russia and one of the most significant opera and ballet theaters in the world.\n\nFounded: 1776\nCurrent building: 1825\nCapacity: 2,153 seats\n\nArchitectural features:\n• Famous Apollo\'s Quadriga on the pediment\n• Eight-column portico\n• Unique acoustics\n\nFamous productions:\n• "Swan Lake"\n• "Spartacus"\n• "Boris Godunov"\n• "Prince Igor"\n\nPractical information:\n• Address: Theatre Square, 1\n• Tickets are recommended to be purchased in advance</string>
+    <string name="bolshoi_short_description">One of the leading opera and ballet theaters in the world</string>
 
-    <!-- Error messages -->
-    <string name="error_location_permission">Location access is required for map functionality</string>
-    <string name="error_network">Please check your internet connection</string>
+    <!-- Error Messages -->
+    <string name="error_location_permission">Location access is required to work with the map</string>
+    <string name="error_network">Check your internet connection</string>
     <string name="error_loading">Error loading data</string>
-    <string name="error_app_start">Error starting application</string>
+    <string name="error_app_start">Error starting the application</string>
     
     <!-- Common -->
     <string name="ok">OK</string>
@@ -52,4 +63,67 @@
     <string name="retry">Retry</string>
     <string name="loading">Loading…</string>
     <string name="no_data">No data</string>
+
+    <!-- Routes -->
+    <string name="historical_center_route">Historical Center of Moscow</string>
+    <string name="historical_center_description">A walking route through the historical center of Moscow, including Red Square, the Kremlin, and other iconic places.\n\nDuration: 4–6 hours\nDistance: 5 km\n\nRecommended visiting order:\n1. Red Square and St. Basil\'s Cathedral\n2. Moscow Kremlin\n3. Alexander Garden\n4. Bolshoi Theatre\n5. Tretyakov Gallery\n\nTips:\n• Start the route in the morning\n• Buy museum tickets in advance\n• Comfortable shoes are a must</string>
+    <string name="arbat_route">Arbat</string>
+    <string name="arbat_route_description">A walk through the historical district of Moscow with visits to Old Arbat, New Arbat, and adjacent streets.\n\nDuration: 2–3 hours\nDistance: 1.8 km\n\nRecommended visiting order:\n1. Arbat Square\n2. Old Arbat pedestrian street\n3. Pushkin House-Museum\n4. Christ the Savior Cathedral\n\nTips:\n• Start from Arbat Square\n• Walk along the pedestrian street Old Arbat\n• Visit the Pushkin Museum (paid entrance)\n• End the route at Christ the Savior Cathedral\n• You can buy souvenirs on Arbat</string>
+    <string name="golden_ring_route">Golden Ring</string>
+    <string name="golden_ring_route_description">A route through the main churches and monasteries of Moscow, including Christ the Savior Cathedral, Novodevichy Convent, and others.\n\nDuration: 4–5 hours\nDistance: 3.2 km\n\nRecommended visiting order:\n1. Christ the Savior Cathedral\n2. Novodevichy Convent\n3. Donskoy Monastery\n4. Danilov Monastery\n\nTips:\n• Start from Christ the Savior Cathedral\n• Use the metro between points\n• Visit Novodevichy Convent\n• End the route at Danilov Monastery</string>
+
+    <!-- Route Labels -->
+    <string name="duration_label">Duration:</string>
+    <string name="distance_label">Distance:</string>
+    <string name="landmarks_label">Landmarks:</string>
+    <string name="tips_label">Visiting tips:</string>
+
+    <!-- Settings -->
+    <string name="pref_header_general">General Settings</string>
+    <string name="pref_header_tts">Voice Settings</string>
+    <string name="pref_language_title">App Language</string>
+    <string name="pref_language_summary">Select interface language</string>
+    <string name="pref_tts_language_title">Voice Language</string>
+    <string name="pref_tts_language_summary">Select voice language</string>
+    <string name="pref_theme_title">Theme</string>
+    <string name="pref_theme_summary">Select app theme</string>
+    <string name="pref_voice_title">Voice</string>
+    <string name="pref_voice_summary">Select voice</string>
+    <string name="pref_sign_in_title">Sign in with Google</string>
+    <string name="pref_sign_out_title">Sign out</string>
+
+    <!-- Landmark Dialog -->
+    <string name="landmark_image">Landmark image</string>
+    <string name="play_audio">Play audio guide</string>
+    <string name="landmark_details">Details</string>
+    <string name="landmark_location">Location</string>
+    <string name="landmark_history">History</string>
+    <string name="landmark_architecture">Architecture</string>
+    <string name="landmark_practical_info">Practical Information</string>
+
+    <!-- Route Dialog -->
+    <string name="route_details">Route Details</string>
+    <string name="route_start">Start Point</string>
+    <string name="route_end">End Point</string>
+    <string name="route_duration">Duration</string>
+    <string name="route_distance">Distance</string>
+    <string name="route_landmarks">Landmarks on Route</string>
+    <string name="route_tips">Visiting Tips</string>
+    <string name="route_show_on_map">Show on Map</string>
+    <string name="route_start_guide">Start Audio Guide</string>
+    <string name="route_pause_guide">Pause Guide</string>
+    <string name="route_resume_guide">Resume Guide</string>
+    <string name="route_stop_guide">Stop Guide</string>
+
+    <!-- Route Tips -->
+    <string name="route_tip_morning">Start early in the morning to avoid crowds</string>
+    <string name="route_tip_tickets">Purchase tickets in advance for popular attractions</string>
+    <string name="route_tip_comfort">Wear comfortable shoes for walking</string>
+    <string name="route_tip_weather">Check the weather forecast before starting</string>
+    <string name="route_tip_breaks">Plan breaks for rest and meals</string>
+    <string name="route_tip_transport">Use public transport between distant points</string>
+    <string name="route_tip_guide">Consider using an audio guide for detailed information</string>
+    <string name="route_tip_photos">Bring a camera for memorable photos</string>
+    <string name="route_tip_water">Carry water and snacks</string>
+    <string name="route_tip_map">Download offline maps in advance</string>
 </resources> 

@@ -33,7 +33,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 } else {
                     authManager.signOut();
                     updateSignInPreference(signInPref);
-                    Toast.makeText(requireContext(), "Выполнен выход из аккаунта", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), R.string.sign_out_success, Toast.LENGTH_SHORT).show();
                 }
                 return true;
             });
@@ -100,10 +100,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             if (signInIntent != null) {
                 startActivityForResult(signInIntent, RC_SIGN_IN);
             } else {
-                Toast.makeText(requireContext(), "Ошибка инициализации Google Sign-In", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), R.string.sign_in_init_error, Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
-            Toast.makeText(requireContext(), "Ошибка при запуске авторизации", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), R.string.sign_in_processing_error, Toast.LENGTH_SHORT).show();
         }
     }
 

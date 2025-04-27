@@ -4,19 +4,19 @@
 
     <PreferenceCategory
         android:title="@string/account_settings"
-        app:iconSpaceReserved="false">
+        android:iconSpaceReserved="false">
         
         <Preference
             android:key="google_sign_in"
             android:title="@string/google_sign_in"
             android:summary="@string/google_sign_in_summary"
-            app:iconSpaceReserved="false" />
+            android:iconSpaceReserved="false" />
             
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/app_settings"
-        app:iconSpaceReserved="false">
+        android:iconSpaceReserved="false">
 
         <ListPreference
             android:defaultValue="ru"
@@ -24,7 +24,7 @@
             android:entryValues="@array/app_language_values"
             android:key="app_language"
             android:title="@string/app_language"
-            app:iconSpaceReserved="false"
+            android:iconSpaceReserved="false"
             android:layout="@layout/preference_custom_layout" />
 
         <ListPreference
@@ -33,7 +33,7 @@
             android:entryValues="@array/tts_language_values"
             android:key="tts_language"
             android:title="@string/tts_language"
-            app:iconSpaceReserved="false"
+            android:iconSpaceReserved="false"
             android:layout="@layout/preference_custom_layout" />
 
         <ListPreference
@@ -42,7 +42,7 @@
             android:entryValues="@array/theme_values"
             android:key="theme"
             android:title="@string/theme"
-            app:iconSpaceReserved="false"
+            android:iconSpaceReserved="false"
             android:layout="@layout/preference_custom_layout" />
 
         <ListPreference
@@ -51,7 +51,7 @@
             android:entryValues="@array/voice_values"
             android:key="voice"
             android:title="@string/voice"
-            app:iconSpaceReserved="false"
+            android:iconSpaceReserved="false"
             android:layout="@layout/preference_custom_layout" />
 
     </PreferenceCategory>

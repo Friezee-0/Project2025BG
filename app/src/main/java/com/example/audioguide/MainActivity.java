@@ -17,6 +17,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -31,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         settingsManager = new SettingsManager(this);
-        settingsManager.setAppLanguage(settingsManager.getAppLanguage());
+        String language = settingsManager.getAppLanguage();
+        updateLocale(language);
         
         if ("dark".equals(settingsManager.getTheme())) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -74,6 +76,49 @@ public class MainActivity extends AppCompatActivity {
         }
 
         checkLocationPermission();
+    }
+
+    private void updateLocale(String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Проверяем, изменился ли язык
+        String currentLanguage = settingsManager.getAppLanguage();
+        if (!currentLanguage.equals(Locale.getDefault().getLanguage())) {
+            updateLocale(currentLanguage);
+            // Пересоздаем все фрагменты
+            recreateFragments();
+        }
+    }
+
+    private void recreateFragments() {
+        try {
+            NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.nav_host_fragment);
+            
+            if (navHostFragment != null) {
+                // Получаем текущий фрагмент
+                int currentDestination = navController.getCurrentDestination().getId();
+                
+                // Пересоздаем NavHostFragment
+                getSupportFragmentManager().beginTransaction()
+                        .detach(navHostFragment)
+                        .attach(navHostFragment)
+                        .commit();
+                
+                // Возвращаемся на текущий фрагмент
+                navController.navigate(currentDestination);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error recreating fragments: " + e.getMessage());
+        }
     }
 
     private void checkLocationPermission() {

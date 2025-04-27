@@ -9,9 +9,13 @@ import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.util.Log;
 import androidx.core.app.ActivityCompat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -27,8 +31,10 @@ public class AudioGuideManager implements LocationListener {
     private final Map<String, Landmark> landmarks;
     private final Map<String, Boolean> playedLandmarks;
     private final SettingsManager settingsManager;
+    private final List<Route> routes;
     private MediaPlayer mediaPlayer;
     private boolean isSpeaking = false;
+    private boolean isInitialized = false;
 
     public AudioGuideManager(Context context) {
         this.context = context;
@@ -36,72 +42,137 @@ public class AudioGuideManager implements LocationListener {
         this.landmarks = new HashMap<>();
         this.playedLandmarks = new HashMap<>();
         this.settingsManager = new SettingsManager(context);
+        this.routes = new ArrayList<>();
 
         initializeLandmarks();
-        initializeTextToSpeech();
+        initializeRoutes();
+        initializeTTS();
     }
 
     private void initializeLandmarks() {
         landmarks.put("red_square", new Landmark(
-            "1",
-            "Красная площадь",
-            "Главная площадь Москвы",
-            "Красная площадь - главная площадь Москвы, расположенная между Московским Кремлем и Китай-городом. Площадь является одной из самых известных достопримечательностей России и объектом Всемирного наследия ЮНЕСКО.",
+            R.string.red_square,
+            R.string.red_square_short_description,
+            R.string.red_square_description,
+            "https://example.com/red_square.jpg",
             55.7539,
-            37.6208,
-            "https://example.com/red_square.jpg"
+            37.6208
         ));
 
         landmarks.put("saint_basil", new Landmark(
-            "2",
-            "Собор Василия Блаженного",
-            "Православный храм на Красной площади",
-            "Собор Василия Блаженного - православный храм на Красной площади в Москве, памятник русской архитектуры. Храм был построен в 1555-1561 годах по приказу царя Ивана Грозного в память о победе над Казанским ханством.",
+            R.string.saint_basil,
+            R.string.saint_basil_short_description,
+            R.string.saint_basil_description,
+            "https://example.com/saint_basil.jpg",
             55.7525,
-            37.6231,
-            "https://example.com/st_basil.jpg"
+            37.6231
         ));
 
         landmarks.put("kremlin", new Landmark(
-            "3",
-            "Кремль",
-            "Исторический комплекс в центре Москвы",
-            "Московский Кремль - древнейшая часть Москвы, главный общественно-политический, историко-художественный и религиозно-церковный комплекс столицы, официальная резиденция Президента Российской Федерации.",
+            R.string.kremlin,
+            R.string.kremlin_short_description,
+            R.string.kremlin_description,
+            "https://example.com/kremlin.jpg",
             55.7520,
-            37.6175,
-            "https://example.com/kremlin.jpg"
+            37.6175
         ));
 
         landmarks.put("tretyakov", new Landmark(
-            "4",
-            "Третьяковская галерея",
-            "Художественный музей в Москве",
-            "Государственная Третьяковская галерея - художественный музей в Москве, основанный в 1856 году купцом Павлом Третьяковым. Галерея обладает одной из крупнейших в мире коллекций русского изобразительного искусства.",
+            R.string.tretyakov,
+            R.string.tretyakov_short_description,
+            R.string.tretyakov_description,
+            "https://example.com/tretyakov.jpg",
             55.7316,
-            37.6205,
-            "https://example.com/tretyakov.jpg"
+            37.6205
         ));
 
         landmarks.put("bolshoi", new Landmark(
-            "5",
-            "Большой театр",
-            "Один из крупнейших в России театров оперы и балета",
-            "Большой театр - один из крупнейших в России и один из самых значительных в мире театров оперы и балета. Комплекс зданий театра расположен в центре Москвы, на Театральной площади.",
+            R.string.bolshoi,
+            R.string.bolshoi_short_description,
+            R.string.bolshoi_description,
+            "https://example.com/bolshoi.jpg",
             55.7601,
-            37.6186,
-            "https://example.com/bolshoi.jpg"
+            37.6186
         ));
     }
 
-    private void initializeTextToSpeech() {
+    private void initializeRoutes() {
+        List<Landmark> historicalCenterLandmarks = Arrays.asList(
+            landmarks.get("red_square"),
+            landmarks.get("saint_basil"),
+            landmarks.get("kremlin"),
+            landmarks.get("tretyakov"),
+            landmarks.get("bolshoi")
+        );
+
+        routes.add(new Route(
+            R.string.historical_center_route,
+            R.string.historical_center_description,
+            R.string.historical_center_description,
+            historicalCenterLandmarks,
+            55.7539, 37.6208, // Красная площадь
+            55.7601, 37.6186  // Большой театр
+        ));
+
+        List<Landmark> arbatLandmarks = Arrays.asList(
+            landmarks.get("tretyakov"),
+            landmarks.get("bolshoi")
+        );
+
+        routes.add(new Route(
+            R.string.arbat_route,
+            R.string.arbat_route_description,
+            R.string.arbat_route_description,
+            arbatLandmarks,
+            55.7316, 37.6205, // Третьяковская галерея
+            55.7601, 37.6186  // Большой театр
+        ));
+
+        List<Landmark> goldenRingLandmarks = Arrays.asList(
+            landmarks.get("saint_basil"),
+            landmarks.get("kremlin")
+        );
+
+        routes.add(new Route(
+            R.string.golden_ring_route,
+            R.string.golden_ring_route_description,
+            R.string.golden_ring_route_description,
+            goldenRingLandmarks,
+            55.7525, 37.6231, // Собор Василия Блаженного
+            55.7520, 37.6175  // Кремль
+        ));
+    }
+
+    public List<Route> getRoutes() {
+        return routes;
+    }
+
+    private void initializeTTS() {
         textToSpeech = new TextToSpeech(context, status -> {
             if (status == TextToSpeech.SUCCESS) {
-                int result = textToSpeech.setLanguage(new Locale("ru"));
-                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Log.e(TAG, "Language not supported");
-                }
+                isInitialized = true;
+                setupTTS();
             } else {
-                Log.e(TAG, "Initialization failed");
+                Log.e(TAG, "TextToSpeech initialization failed");
+            }
+        });
+    }
+
+    private void setupTTS() {
+        textToSpeech.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+            @Override
+            public void onStart(String utteranceId) {
+                // Обработка начала воспроизведения
+            }
+
+            @Override
+            public void onDone(String utteranceId) {
+                // Обработка завершения воспроизведения
+            }
+
+            @Override
+            public void onError(String utteranceId) {
+                // Обработка ошибки воспроизведения
             }
         });
     }
@@ -136,7 +207,7 @@ public class AudioGuideManager implements LocationListener {
             );
 
             if (distance[0] <= PROXIMITY_RADIUS && !playedLandmarks.containsKey(entry.getKey())) {
-                playDescription(landmark);
+                startGuide(landmark);
                 playedLandmarks.put(entry.getKey(), true);
             } else if (distance[0] > PROXIMITY_RADIUS) {
                 playedLandmarks.remove(entry.getKey());
@@ -144,37 +215,27 @@ public class AudioGuideManager implements LocationListener {
         }
     }
 
-    private void playDescription(Landmark landmark) {
-        if (textToSpeech != null) {
-            textToSpeech.speak(
-                landmark.getName() + ". " + landmark.getShortDescription(),
-                TextToSpeech.QUEUE_FLUSH,
-                null,
-                landmark.getName()
-            );
-        }
-    }
-
-    public void speak(String landmarkId) {
-        Landmark landmark = landmarks.get(landmarkId);
-        if (landmark != null) {
-            String text = landmark.getName() + ". " + landmark.getShortDescription();
-            if (!isSpeaking) {
-                textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
-                isSpeaking = true;
-            }
-        }
-    }
-
-    public void stopSpeaking() {
+    public void startGuide(Landmark landmark) {
         if (isSpeaking) {
+            stopGuide();
+        }
+
+        String text = context.getString(landmark.getNameResId()) + ". " + 
+                     context.getString(landmark.getShortDescriptionResId());
+        
+        textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, "landmark_guide");
+        isSpeaking = true;
+    }
+
+    public void stopGuide() {
+        if (textToSpeech != null) {
             textToSpeech.stop();
             isSpeaking = false;
         }
     }
 
     public void playAudio(String landmarkId) {
-        stopSpeaking();
+        stopGuide();
         if (mediaPlayer != null) {
             mediaPlayer.release();
         }
@@ -204,7 +265,7 @@ public class AudioGuideManager implements LocationListener {
     }
 
     public void shutdown() {
-        stopSpeaking();
+        stopGuide();
         stopAudio();
         if (textToSpeech != null) {
             textToSpeech.stop();

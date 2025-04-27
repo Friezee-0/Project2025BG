@@ -18,7 +18,22 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/route_description"
+            android:id="@+id/route_short_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"
+            android:textStyle="italic"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/route_details"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/route_full_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -28,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Достопримечательности:"
+            android:text="@string/landmarks_label"
             android:textStyle="bold"/>
 
         <TextView
@@ -41,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Время и расстояние:"
+            android:text="@string/duration_label"
             android:textStyle="bold"/>
 
         <TextView
@@ -49,6 +64,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/distance_label"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/route_distance"
@@ -60,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Советы для посещения:"
+            android:text="@string/tips_label"
             android:textStyle="bold"/>
 
         <TextView
@@ -68,6 +90,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"/>
+
+        <Button
+            android:id="@+id/start_guide_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/route_start_guide"/>
 
     </LinearLayout>
 

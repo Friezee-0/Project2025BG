@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,13 +15,15 @@ public class RoutesFragment extends Fragment implements RoutesAdapter.OnRouteCli
     private RoutesAdapter adapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                           Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_routes, container, false);
+        
         recyclerView = view.findViewById(R.id.routes_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         
         List<Route> routes = RouteData.getRoutes();
-        adapter = new RoutesAdapter(routes, this);
+        adapter = new RoutesAdapter(requireContext(), routes, this);
         recyclerView.setAdapter(adapter);
         
         return view;
@@ -28,14 +31,15 @@ public class RoutesFragment extends Fragment implements RoutesAdapter.OnRouteCli
 
     @Override
     public void onRouteClick(Route route) {
-        RouteDetailDialog dialog = RouteDetailDialog.newInstance(
-            route.getName(),
-            route.getShortDescription(),
-            route.getFullDescription(),
-            route.getDuration(),
-            route.getDistance(),
-            route.getTips()
+        RouteDetailsDialog dialog = RouteDetailsDialog.newInstance(
+            route.getNameResId(),
+            route.getFullDescriptionResId(),
+            route.getLandmarks(),
+            route.getStartLatitude(),
+            route.getStartLongitude(),
+            route.getEndLatitude(),
+            route.getEndLongitude()
         );
-        dialog.show(getParentFragmentManager(), "route_detail");
+        dialog.show(getChildFragmentManager(), "route_details");
     }
 } 

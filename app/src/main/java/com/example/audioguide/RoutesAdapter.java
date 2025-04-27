@@ -1,43 +1,44 @@
 package com.example.audioguide;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
-public class RoutesAdapter extends RecyclerView.Adapter<RoutesAdapter.ViewHolder> {
+public class RoutesAdapter extends RecyclerView.Adapter<RoutesAdapter.RouteViewHolder> {
     private final List<Route> routes;
+    private final Context context;
     private final OnRouteClickListener listener;
 
     public interface OnRouteClickListener {
         void onRouteClick(Route route);
     }
 
-    public RoutesAdapter(List<Route> routes, OnRouteClickListener listener) {
+    public RoutesAdapter(Context context, List<Route> routes, OnRouteClickListener listener) {
+        this.context = context;
         this.routes = routes;
         this.listener = listener;
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RouteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.item_route, parent, false);
-        return new ViewHolder(view);
+                .inflate(R.layout.item_route, parent, false);
+        return new RouteViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RouteViewHolder holder, int position) {
         Route route = routes.get(position);
-        holder.titleTextView.setText(route.getName());
-        holder.descriptionTextView.setText(route.getShortDescription());
+        holder.titleTextView.setText(context.getString(route.getNameResId()));
+        holder.descriptionTextView.setText(context.getString(route.getShortDescriptionResId()));
         
-        holder.itemView.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onRouteClick(route);
-            }
-        });
+        holder.itemView.setOnClickListener(v -> listener.onRouteClick(route));
     }
 
     @Override
@@ -45,14 +46,14 @@ public class RoutesAdapter extends RecyclerView.Adapter<RoutesAdapter.ViewHolder
         return routes.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView titleTextView;
-        TextView descriptionTextView;
+    static class RouteViewHolder extends RecyclerView.ViewHolder {
+        final TextView titleTextView;
+        final TextView descriptionTextView;
 
-        ViewHolder(View view) {
-            super(view);
-            titleTextView = view.findViewById(R.id.route_title);
-            descriptionTextView = view.findViewById(R.id.route_description);
+        RouteViewHolder(View itemView) {
+            super(itemView);
+            titleTextView = itemView.findViewById(R.id.route_title);
+            descriptionTextView = itemView.findViewById(R.id.route_description);
         }
     }
 } 

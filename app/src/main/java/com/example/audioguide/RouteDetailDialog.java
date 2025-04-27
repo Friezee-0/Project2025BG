@@ -10,22 +10,25 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 public class RouteDetailDialog extends DialogFragment {
-    private static final String ARG_TITLE = "title";
-    private static final String ARG_DESCRIPTION = "description";
-    private static final String ARG_LANDMARKS = "landmarks";
+    private static final String ARG_NAME_RES_ID = "name_res_id";
+    private static final String ARG_SHORT_DESCRIPTION_RES_ID = "short_description_res_id";
+    private static final String ARG_FULL_DESCRIPTION_RES_ID = "full_description_res_id";
     private static final String ARG_DURATION = "duration";
     private static final String ARG_DISTANCE = "distance";
+    private static final String ARG_LANDMARKS = "landmarks";
     private static final String ARG_TIPS = "tips";
 
-    public static RouteDetailDialog newInstance(String title, String description, String landmarks,
-                                              String duration, String distance, String tips) {
+    public static RouteDetailDialog newInstance(int nameResId, int shortDescriptionResId,
+                                              int fullDescriptionResId, String duration,
+                                              String distance, String landmarks, String tips) {
         RouteDetailDialog dialog = new RouteDetailDialog();
         Bundle args = new Bundle();
-        args.putString(ARG_TITLE, title);
-        args.putString(ARG_DESCRIPTION, description);
-        args.putString(ARG_LANDMARKS, landmarks);
+        args.putInt(ARG_NAME_RES_ID, nameResId);
+        args.putInt(ARG_SHORT_DESCRIPTION_RES_ID, shortDescriptionResId);
+        args.putInt(ARG_FULL_DESCRIPTION_RES_ID, fullDescriptionResId);
         args.putString(ARG_DURATION, duration);
         args.putString(ARG_DISTANCE, distance);
+        args.putString(ARG_LANDMARKS, landmarks);
         args.putString(ARG_TIPS, tips);
         dialog.setArguments(args);
         return dialog;
@@ -37,7 +40,8 @@ public class RouteDetailDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_route_detail, container, false);
 
         TextView titleView = view.findViewById(R.id.route_title);
-        TextView descriptionView = view.findViewById(R.id.route_description);
+        TextView shortDescriptionView = view.findViewById(R.id.route_short_description);
+        TextView fullDescriptionView = view.findViewById(R.id.route_full_description);
         TextView landmarksView = view.findViewById(R.id.route_landmarks);
         TextView durationView = view.findViewById(R.id.route_duration);
         TextView distanceView = view.findViewById(R.id.route_distance);
@@ -45,13 +49,15 @@ public class RouteDetailDialog extends DialogFragment {
 
         Bundle args = getArguments();
         if (args != null) {
-            titleView.setText(args.getString(ARG_TITLE));
-            descriptionView.setText(args.getString(ARG_DESCRIPTION));
+            titleView.setText(args.getInt(ARG_NAME_RES_ID));
+            shortDescriptionView.setText(args.getInt(ARG_SHORT_DESCRIPTION_RES_ID));
+            fullDescriptionView.setText(args.getInt(ARG_FULL_DESCRIPTION_RES_ID));
             landmarksView.setText(args.getString(ARG_LANDMARKS));
-            durationView.setText("Продолжительность: " + args.getString(ARG_DURATION));
-            distanceView.setText("Протяженность: " + args.getString(ARG_DISTANCE));
+            durationView.setText(getString(R.string.duration_label) + " " + args.getString(ARG_DURATION));
+            distanceView.setText(getString(R.string.distance_label) + " " + args.getString(ARG_DISTANCE));
             tipsView.setText(args.getString(ARG_TIPS));
         }
+
         return view;
     }
 } 

@@ -4,49 +4,91 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RouteData {
-    private static List<Route> routes = new ArrayList<>();
+    private static final List<Route> routes = new ArrayList<>();
 
     static {
-        routes.add(new Route(
-            "1",
-            "Исторический центр Москвы",
-            "Классический маршрут по главным достопримечательностям",
-            "Красная площадь → Собор Василия Блаженного → Кремль → Александровский сад → Манежная площадь",
-            "3-4 часа",
-            "2.5 км",
-            "• Начните маршрут с Красной площади\n" +
-            "• Посетите Собор Василия Блаженного (вход платный)\n" +
-            "• Закажите экскурсию по Кремлю заранее\n" +
-            "• В Александровском саду можно отдохнуть\n" +
-            "• Завершите маршрут на Манежной площади"
+        // Исторический центр Москвы
+        List<Landmark> historicalCenterLandmarks = new ArrayList<>();
+        historicalCenterLandmarks.add(new Landmark(
+            R.string.red_square,
+            R.string.red_square_short_description,
+            R.string.red_square_description,
+            "https://example.com/red_square.jpg",
+            55.7539,
+            37.6208
+        ));
+        historicalCenterLandmarks.add(new Landmark(
+            R.string.saint_basil,
+            R.string.saint_basil_short_description,
+            R.string.saint_basil_description,
+            "https://example.com/saint_basil.jpg",
+            55.7525,
+            37.6231
         ));
 
         routes.add(new Route(
-            "2",
-            "Арбат и окрестности",
-            "Прогулка по историческому району Москвы",
-            "Арбатская площадь → Старый Арбат → Дом-музей Пушкина → Храм Христа Спасителя",
-            "2-3 часа",
-            "1.8 км",
-            "• Начните с Арбатской площади\n" +
-            "• Прогуляйтесь по пешеходной улице Старый Арбат\n" +
-            "• Посетите музей Пушкина (вход платный)\n" +
-            "• Завершите маршрут у Храма Христа Спасителя\n" +
-            "• По пути можно купить сувениры на Арбате"
+            R.string.historical_center_route,
+            R.string.historical_center_description,
+            R.string.historical_center_description,
+            historicalCenterLandmarks,
+            55.7539, 37.6208, // Красная площадь
+            55.7525, 37.6231  // Собор Василия Блаженного
+        ));
+
+        // Арбат
+        List<Landmark> arbatLandmarks = new ArrayList<>();
+        arbatLandmarks.add(new Landmark(
+            R.string.tretyakov,
+            R.string.tretyakov_short_description,
+            R.string.tretyakov_description,
+            "https://example.com/tretyakov.jpg",
+            55.7316,
+            37.6205
+        ));
+        arbatLandmarks.add(new Landmark(
+            R.string.bolshoi,
+            R.string.bolshoi_short_description,
+            R.string.bolshoi_description,
+            "https://example.com/bolshoi.jpg",
+            55.7601,
+            37.6186
         ));
 
         routes.add(new Route(
-            "3",
-            "Золотое кольцо Москвы",
-            "Маршрут по главным храмам и монастырям",
-            "Храм Христа Спасителя → Новодевичий монастырь → Донской монастырь → Даниловский монастырь",
-            "4-5 часов",
-            "3.2 км",
-            "• Начните с Храма Христа Спасителя\n" +
-            "• Доезжайте до Новодевичьего монастыря\n" +
-            "• Посетите Донской монастырь\n" +
-            "• Завершите маршрут в Даниловском монастыре\n" +
-            "• Рекомендуется использовать метро между точками"
+            R.string.arbat_route,
+            R.string.arbat_route_description,
+            R.string.arbat_route_description,
+            arbatLandmarks,
+            55.7316, 37.6205, // Третьяковская галерея
+            55.7601, 37.6186  // Большой театр
+        ));
+
+        // Золотое кольцо
+        List<Landmark> goldenRingLandmarks = new ArrayList<>();
+        goldenRingLandmarks.add(new Landmark(
+            R.string.saint_basil,
+            R.string.saint_basil_short_description,
+            R.string.saint_basil_description,
+            "https://example.com/saint_basil.jpg",
+            55.7525,
+            37.6231
+        ));
+        goldenRingLandmarks.add(new Landmark(
+            R.string.kremlin,
+            R.string.kremlin_short_description,
+            R.string.kremlin_description,
+            "https://example.com/kremlin.jpg",
+            55.7520,
+            37.6175
+        ));
+
+        routes.add(new Route(
+            R.string.golden_ring_route,
+            R.string.golden_ring_route_description,
+            R.string.golden_ring_route_description,
+            goldenRingLandmarks,
+            55.7525, 37.6231, // Собор Василия Блаженного
+            55.7520, 37.6175  // Кремль
         ));
     }
 

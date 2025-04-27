@@ -32,8 +32,8 @@ public class LandmarksAdapter extends RecyclerView.Adapter<LandmarksAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Landmark landmark = landmarks.get(position);
-        holder.nameTextView.setText(landmark.getName());
-        holder.descriptionTextView.setText(landmark.getShortDescription());
+        holder.nameTextView.setText(landmark.getNameResId());
+        holder.descriptionTextView.setText(landmark.getShortDescriptionResId());
         
         if (landmark.getImageUrl() != null && !landmark.getImageUrl().isEmpty()) {
             Glide.with(holder.itemView.getContext())

@@ -1,77 +1,43 @@
 package com.example.audioguide;
 
 public class Landmark {
-    private String id;
-    private String name;
-    private String shortDescription;
-    private String fullDescription;
-    private double latitude;
-    private double longitude;
-    private String imageUrl;
+    private final int nameResId;
+    private final int shortDescriptionResId;
+    private final int fullDescriptionResId;
+    private final String imageUrl;
+    private final double latitude;
+    private final double longitude;
 
-    public Landmark(String id, String name, String shortDescription, String fullDescription, double latitude, double longitude, String imageUrl) {
-        this.id = id;
-        this.name = name;
-        this.shortDescription = shortDescription;
-        this.fullDescription = fullDescription;
-        this.latitude = latitude;
-        this.longitude = longitude;
+    public Landmark(int nameResId, int shortDescriptionResId, int fullDescriptionResId, String imageUrl, double latitude, double longitude) {
+        this.nameResId = nameResId;
+        this.shortDescriptionResId = shortDescriptionResId;
+        this.fullDescriptionResId = fullDescriptionResId;
         this.imageUrl = imageUrl;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getShortDescription() {
-        return shortDescription;
-    }
-
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
-
-    public String getFullDescription() {
-        return fullDescription;
-    }
-
-    public void setFullDescription(String fullDescription) {
-        this.fullDescription = fullDescription;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
         this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public int getNameResId() {
+        return nameResId;
+    }
+
+    public int getShortDescriptionResId() {
+        return shortDescriptionResId;
+    }
+
+    public int getFullDescriptionResId() {
+        return fullDescriptionResId;
     }
 
     public String getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
     }
 } 

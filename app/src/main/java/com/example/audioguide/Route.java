@@ -1,30 +1,59 @@
 package com.example.audioguide;
 
-public class Route {
-    private String id;
-    private String name;
-    private String shortDescription;
-    private String fullDescription;
-    private String duration;
-    private String distance;
-    private String tips;
+import java.util.List;
 
-    public Route(String id, String name, String shortDescription, String fullDescription,
-                String duration, String distance, String tips) {
-        this.id = id;
-        this.name = name;
-        this.shortDescription = shortDescription;
-        this.fullDescription = fullDescription;
-        this.duration = duration;
-        this.distance = distance;
-        this.tips = tips;
+public class Route {
+    private final int nameResId;
+    private final int shortDescriptionResId;
+    private final int fullDescriptionResId;
+    private final List<Landmark> landmarks;
+    private final double startLatitude;
+    private final double startLongitude;
+    private final double endLatitude;
+    private final double endLongitude;
+
+    public Route(int nameResId, int shortDescriptionResId, int fullDescriptionResId,
+                List<Landmark> landmarks, double startLatitude, double startLongitude,
+                double endLatitude, double endLongitude) {
+        this.nameResId = nameResId;
+        this.shortDescriptionResId = shortDescriptionResId;
+        this.fullDescriptionResId = fullDescriptionResId;
+        this.landmarks = landmarks;
+        this.startLatitude = startLatitude;
+        this.startLongitude = startLongitude;
+        this.endLatitude = endLatitude;
+        this.endLongitude = endLongitude;
     }
 
-    public String getId() { return id; }
-    public String getName() { return name; }
-    public String getShortDescription() { return shortDescription; }
-    public String getFullDescription() { return fullDescription; }
-    public String getDuration() { return duration; }
-    public String getDistance() { return distance; }
-    public String getTips() { return tips; }
+    public int getNameResId() {
+        return nameResId;
+    }
+
+    public int getShortDescriptionResId() {
+        return shortDescriptionResId;
+    }
+
+    public int getFullDescriptionResId() {
+        return fullDescriptionResId;
+    }
+
+    public List<Landmark> getLandmarks() {
+        return landmarks;
+    }
+
+    public double getStartLatitude() {
+        return startLatitude;
+    }
+
+    public double getStartLongitude() {
+        return startLongitude;
+    }
+
+    public double getEndLatitude() {
+        return endLatitude;
+    }
+
+    public double getEndLongitude() {
+        return endLongitude;
+    }
 } 
