@@ -12,9 +12,10 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="ic_launcher_background">#00FFFFFF</color>
-    <color name="colorPrimary">#F44336</color>
-    <color name="colorPrimaryDark">#D32F2F</color>
-    <color name="colorAccent">#FF5252</color>
+    <color name="colorPrimary">#FF6200EE</color>
+    <color name="colorPrimaryDark">#FF3700B3</color>
+    <color name="colorAccent">#FF03DAC5</color>
+    <color name="colorAccentDark">#FF018786</color>
     
     <!-- Light Theme Colors -->
     <color name="lightBackground">#FFFFFF</color>
@@ -25,4 +26,15 @@
     <color name="darkBackground">#121212</color>
     <color name="darkSurface">#1E1E1E</color>
     <color name="darkText">#FFFFFF</color>
+
+    <!-- Цвета текста -->
+    <color name="text_primary">#DE000000</color>
+    <color name="text_secondary">#99000000</color>
+
+    <!-- Фоновые цвета -->
+    <color name="background">#FFFFFFFF</color>
+    <color name="dialog_background">#FFFFFFFF</color>
+
+    <!-- Дополнительные цвета -->
+    <color name="transparent">#00000000</color>
 </resources>

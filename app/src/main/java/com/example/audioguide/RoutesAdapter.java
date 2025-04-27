@@ -36,7 +36,7 @@ public class RoutesAdapter extends RecyclerView.Adapter<RoutesAdapter.RouteViewH
     public void onBindViewHolder(@NonNull RouteViewHolder holder, int position) {
         Route route = routes.get(position);
         holder.titleTextView.setText(context.getString(route.getNameResId()));
-        holder.descriptionTextView.setText(context.getString(route.getShortDescriptionResId()));
+        holder.descriptionTextView.setText(context.getString(route.getDescriptionResId()));
         
         holder.itemView.setOnClickListener(v -> listener.onRouteClick(route));
     }

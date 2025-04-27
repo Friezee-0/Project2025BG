@@ -41,7 +41,7 @@ public class AudioGuideManager implements LocationListener {
         this.locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         this.landmarks = new HashMap<>();
         this.playedLandmarks = new HashMap<>();
-        this.settingsManager = new SettingsManager(context);
+        this.settingsManager = SettingsManager.getInstance(context);
         this.routes = new ArrayList<>();
 
         initializeLandmarks();
@@ -52,95 +52,182 @@ public class AudioGuideManager implements LocationListener {
     private void initializeLandmarks() {
         landmarks.put("red_square", new Landmark(
             R.string.red_square,
-            R.string.red_square_short_description,
             R.string.red_square_description,
+            R.string.red_square_short_description,
             "https://example.com/red_square.jpg",
-            55.7539,
-            37.6208
+            55.7539, 37.6208
         ));
 
         landmarks.put("saint_basil", new Landmark(
             R.string.saint_basil,
-            R.string.saint_basil_short_description,
             R.string.saint_basil_description,
+            R.string.saint_basil_short_description,
             "https://example.com/saint_basil.jpg",
-            55.7525,
-            37.6231
+            55.7525, 37.6231
         ));
 
         landmarks.put("kremlin", new Landmark(
             R.string.kremlin,
-            R.string.kremlin_short_description,
             R.string.kremlin_description,
+            R.string.kremlin_short_description,
             "https://example.com/kremlin.jpg",
-            55.7520,
-            37.6175
+            55.7520, 37.6175
         ));
 
         landmarks.put("tretyakov", new Landmark(
             R.string.tretyakov,
-            R.string.tretyakov_short_description,
             R.string.tretyakov_description,
+            R.string.tretyakov_short_description,
             "https://example.com/tretyakov.jpg",
-            55.7316,
-            37.6205
+            55.7415, 37.6208
         ));
 
         landmarks.put("bolshoi", new Landmark(
             R.string.bolshoi,
-            R.string.bolshoi_short_description,
             R.string.bolshoi_description,
+            R.string.bolshoi_short_description,
             "https://example.com/bolshoi.jpg",
-            55.7601,
-            37.6186
+            55.7602, 37.6186
+        ));
+
+        // Новые достопримечательности
+        landmarks.put("gum", new Landmark(
+            R.string.gum,
+            R.string.gum_description,
+            R.string.gum_short_description,
+            "https://example.com/gum.jpg",
+            55.7544, 37.6217
+        ));
+
+        landmarks.put("lenin_mausoleum", new Landmark(
+            R.string.lenin_mausoleum,
+            R.string.lenin_mausoleum_description,
+            R.string.lenin_mausoleum_short_description,
+            "https://example.com/lenin_mausoleum.jpg",
+            55.7539, 37.6218
+        ));
+
+        landmarks.put("alexander_garden", new Landmark(
+            R.string.alexander_garden,
+            R.string.alexander_garden_description,
+            R.string.alexander_garden_short_description,
+            "https://example.com/alexander_garden.jpg",
+            55.7528, 37.6136
+        ));
+
+        landmarks.put("manege", new Landmark(
+            R.string.manege,
+            R.string.manege_description,
+            R.string.manege_short_description,
+            "https://example.com/manege.jpg",
+            55.7558, 37.6139
+        ));
+
+        landmarks.put("historical_museum", new Landmark(
+            R.string.historical_museum,
+            R.string.historical_museum_description,
+            R.string.historical_museum_short_description,
+            "https://example.com/historical_museum.jpg",
+            55.7558, 37.6189
+        ));
+
+        landmarks.put("kazan_cathedral", new Landmark(
+            R.string.kazan_cathedral,
+            R.string.kazan_cathedral_description,
+            R.string.kazan_cathedral_short_description,
+            "https://example.com/kazan_cathedral.jpg",
+            55.7547, 37.6197
         ));
     }
 
     private void initializeRoutes() {
-        List<Landmark> historicalCenterLandmarks = Arrays.asList(
-            landmarks.get("red_square"),
-            landmarks.get("saint_basil"),
-            landmarks.get("kremlin"),
-            landmarks.get("tretyakov"),
-            landmarks.get("bolshoi")
-        );
-
-        routes.add(new Route(
-            R.string.historical_center_route,
-            R.string.historical_center_description,
-            R.string.historical_center_description,
-            historicalCenterLandmarks,
-            55.7539, 37.6208, // Красная площадь
-            55.7601, 37.6186  // Большой театр
-        ));
-
-        List<Landmark> arbatLandmarks = Arrays.asList(
-            landmarks.get("tretyakov"),
-            landmarks.get("bolshoi")
-        );
-
-        routes.add(new Route(
-            R.string.arbat_route,
-            R.string.arbat_route_description,
-            R.string.arbat_route_description,
-            arbatLandmarks,
-            55.7316, 37.6205, // Третьяковская галерея
-            55.7601, 37.6186  // Большой театр
-        ));
-
-        List<Landmark> goldenRingLandmarks = Arrays.asList(
-            landmarks.get("saint_basil"),
-            landmarks.get("kremlin")
-        );
-
-        routes.add(new Route(
-            R.string.golden_ring_route,
-            R.string.golden_ring_route_description,
-            R.string.golden_ring_route_description,
-            goldenRingLandmarks,
-            55.7525, 37.6231, // Собор Василия Блаженного
-            55.7520, 37.6175  // Кремль
-        ));
+        try {
+            // Исторический центр
+            List<String> historicalCenterLandmarks = new ArrayList<>(Arrays.asList(
+                "red_square",
+                "saint_basil",
+                "kremlin",
+                "gum",
+                "lenin_mausoleum",
+                "alexander_garden"
+            ));
+            
+            // Проверяем существование достопримечательностей
+            historicalCenterLandmarks.removeIf(id -> !landmarks.containsKey(id));
+            
+            List<String> historicalCenterTips = new ArrayList<>(Arrays.asList(
+                "Начните с Красной площади",
+                "Посетите Мавзолей Ленина в первой половине дня",
+                "Забронируйте билеты в Кремль заранее"
+            ));
+            
+            if (!historicalCenterLandmarks.isEmpty()) {
+                routes.add(new Route(
+                    R.string.historical_center_route,
+                    R.string.historical_center_description,
+                    R.string.historical_center_duration,
+                    R.string.historical_center_distance,
+                    historicalCenterLandmarks,
+                    historicalCenterTips
+                ));
+            }
+            
+            // Арбат
+            List<String> arbatLandmarks = new ArrayList<>(Arrays.asList(
+                "manege",
+                "historical_museum",
+                "kazan_cathedral"
+            ));
+            
+            // Проверяем существование достопримечательностей
+            arbatLandmarks.removeIf(id -> !landmarks.containsKey(id));
+            
+            List<String> arbatTips = new ArrayList<>(Arrays.asList(
+                "Лучшее время для посещения - вечер",
+                "Попробуйте местные кафе и рестораны",
+                "Обратите внимание на уличных музыкантов"
+            ));
+            
+            if (!arbatLandmarks.isEmpty()) {
+                routes.add(new Route(
+                    R.string.arbat_route,
+                    R.string.arbat_description,
+                    R.string.arbat_duration,
+                    R.string.arbat_distance,
+                    arbatLandmarks,
+                    arbatTips
+                ));
+            }
+            
+            // Золотое кольцо
+            List<String> goldenRingLandmarks = new ArrayList<>(Arrays.asList(
+                "saint_basil",
+                "kazan_cathedral",
+                "tretyakov"
+            ));
+            
+            // Проверяем существование достопримечательностей
+            goldenRingLandmarks.removeIf(id -> !landmarks.containsKey(id));
+            
+            List<String> goldenRingTips = new ArrayList<>(Arrays.asList(
+                "Планируйте поездку на несколько дней",
+                "Возьмите с собой теплую одежду",
+                "Попробуйте местную кухню"
+            ));
+            
+            if (!goldenRingLandmarks.isEmpty()) {
+                routes.add(new Route(
+                    R.string.golden_ring_route,
+                    R.string.golden_ring_description,
+                    R.string.golden_ring_duration,
+                    R.string.golden_ring_distance,
+                    goldenRingLandmarks,
+                    goldenRingTips
+                ));
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error initializing routes", e);
+        }
     }
 
     public List<Route> getRoutes() {
@@ -282,4 +369,8 @@ public class AudioGuideManager implements LocationListener {
 
     @Override
     public void onProviderDisabled(String provider) {}
+
+    public Map<String, Landmark> getLandmarks() {
+        return landmarks;
+    }
 } 

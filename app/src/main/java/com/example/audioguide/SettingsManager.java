@@ -15,6 +15,7 @@ public class SettingsManager {
     private static final String KEY_VOICE = "voice";
     private static final String KEY_IS_GUEST = "is_guest";
     
+    private static SettingsManager instance;
     private final SharedPreferences prefs;
     private final Context context;
     private TextToSpeech textToSpeech;
@@ -23,6 +24,13 @@ public class SettingsManager {
         this.context = context;
         this.prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         initTextToSpeech();
+    }
+
+    public static SettingsManager getInstance(Context context) {
+        if (instance == null) {
+            instance = new SettingsManager(context);
+        }
+        return instance;
     }
 
     private void initTextToSpeech() {
@@ -57,9 +65,13 @@ public class SettingsManager {
     private void updateLocale(String language) {
         Locale locale = new Locale(language);
         Locale.setDefault(locale);
+        
         Resources resources = context.getResources();
-        Configuration config = resources.getConfiguration();
+        Configuration config = new Configuration(resources.getConfiguration());
         config.setLocale(locale);
+        config.setLayoutDirection(locale);
+        
+        context.createConfigurationContext(config);
         resources.updateConfiguration(config, resources.getDisplayMetrics());
     }
 
@@ -69,6 +81,10 @@ public class SettingsManager {
 
     public String getTheme() {
         return prefs.getString(KEY_THEME, "light");
+    }
+
+    public boolean isDarkTheme() {
+        return getTheme().equals("dark");
     }
 
     public void setVoice(String voice) {

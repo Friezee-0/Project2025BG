@@ -51,6 +51,31 @@
     <string name="bolshoi_description">The State Academic Bolshoi Theatre of Russia is one of the largest in Russia and one of the most significant opera and ballet theaters in the world.\n\nFounded: 1776\nCurrent building: 1825\nCapacity: 2,153 seats\n\nArchitectural features:\n• Famous Apollo\'s Quadriga on the pediment\n• Eight-column portico\n• Unique acoustics\n\nFamous productions:\n• "Swan Lake"\n• "Spartacus"\n• "Boris Godunov"\n• "Prince Igor"\n\nPractical information:\n• Address: Theatre Square, 1\n• Tickets are recommended to be purchased in advance</string>
     <string name="bolshoi_short_description">One of the leading opera and ballet theaters in the world</string>
 
+    <!-- New Landmarks -->
+    <string name="gum">GUM</string>
+    <string name="gum_description">The State Department Store is a large shopping complex in the center of Moscow, occupying an entire block of Kitay-gorod and facing Red Square with its main facade.\n\nArea: 35,000 m²\nFloors: 3\n\nHistory:\n• Built in 1893\n• Closed during Soviet times\n• Reopened in 1953\n\nFeatures:\n• Unique architecture\n• Glass roof\n• Central fountains\n• Over 200 stores\n\nPractical information:\n• Address: Red Square, 3\n• Opening hours: 10:00-22:00</string>
+    <string name="gum_short_description">Historic shopping complex on Red Square</string>
+
+    <string name="lenin_mausoleum">Lenin\'s Mausoleum</string>
+    <string name="lenin_mausoleum_description">Lenin\'s Mausoleum is a memorial tomb on Red Square near the Kremlin wall, where the body of V. I. Lenin has been resting since 1924.\n\nHeight: 12 m\nArea: 1,300 m²\n\nArchitectural features:\n• Granite cladding\n• Stepped form\n• Speaker\'s platform\n\nHistory:\n• First wooden mausoleum built in 1924\n• Modern stone mausoleum built in 1930\n• Stalin\'s body was also kept here from 1953 to 1961</string>
+    <string name="lenin_mausoleum_short_description">Historic mausoleum on Red Square</string>
+
+    <string name="alexander_garden">Alexander Garden</string>
+    <string name="alexander_garden_description">Alexander Garden is a park in the center of Moscow, located along the western wall of the Kremlin.\n\nArea: 10 ha\nLength: 865 m\n\nAttractions:\n• Tomb of the Unknown Soldier\n• Fountain complex\n• Italian Grotto\n• Obelisk in honor of the 300th anniversary of the Romanov dynasty\n\nHistory:\n• Laid out in 1820-1823\n• Named after Emperor Alexander I\n• Reconstructed in 2012-2013</string>
+    <string name="alexander_garden_short_description">Historic park by the Kremlin walls</string>
+
+    <string name="manege">Manege</string>
+    <string name="manege_description">The Central Exhibition Hall \"Manege\" is the largest exhibition hall in the center of Moscow.\n\nArea: 4,500 m²\nHeight: 15 m\n\nHistory:\n• Built in 1817\n• Restored after the 2004 fire\n• Modern reconstruction completed in 2005\n\nFeatures:\n• Unique column-free construction\n• Modern exhibition equipment\n• Central location\n\nPractical information:\n• Address: Manezhnaya Square, 1\n• Opening hours: 12:00-22:00</string>
+    <string name="manege_short_description">Largest exhibition hall in central Moscow</string>
+
+    <string name="historical_museum">State Historical Museum</string>
+    <string name="historical_museum_description">The State Historical Museum is the largest national historical museum in Russia.\n\nArea: 4,000 m²\nCollection: over 4.5 million exhibits\n\nExhibitions:\n• Ancient Rus\n• Muscovite Tsardom\n• Russian Empire\n• Soviet period\n\nFeatures:\n• Unique building in pseudo-Russian style\n• Rich interiors\n• Interactive exhibits\n\nPractical information:\n• Address: Red Square, 1\n• Opening hours: Mon-Sun 10:00-18:00</string>
+    <string name="historical_museum_short_description">Largest historical museum in Russia</string>
+
+    <string name="kazan_cathedral">Kazan Cathedral</string>
+    <string name="kazan_cathedral_description">Kazan Cathedral is an Orthodox church on Red Square, a monument of Russian architecture of the 17th century.\n\nHeight: 42 m\nArea: 1,200 m²\n\nHistory:\n• Built in 1625\n• Destroyed in 1936\n• Restored in 1990-1993\n\nArchitectural features:\n• Tent roof\n• Rich facade decoration\n• Iconostasis in 17th century style\n\nPractical information:\n• Address: Red Square\n• Opening hours: 8:00-20:00</string>
+    <string name="kazan_cathedral_short_description">Orthodox church on Red Square</string>
+
     <!-- Error Messages -->
     <string name="error_location_permission">Location access is required to work with the map</string>
     <string name="error_network">Check your internet connection</string>
@@ -66,11 +91,19 @@
 
     <!-- Routes -->
     <string name="historical_center_route">Historical Center of Moscow</string>
-    <string name="historical_center_description">A walking route through the historical center of Moscow, including Red Square, the Kremlin, and other iconic places.\n\nDuration: 4–6 hours\nDistance: 5 km\n\nRecommended visiting order:\n1. Red Square and St. Basil\'s Cathedral\n2. Moscow Kremlin\n3. Alexander Garden\n4. Bolshoi Theatre\n5. Tretyakov Gallery\n\nTips:\n• Start the route in the morning\n• Buy museum tickets in advance\n• Comfortable shoes are a must</string>
+    <string name="historical_center_description">Walking route through the historical center of Moscow, including Red Square, the Kremlin and other iconic places.</string>
+    <string name="historical_center_duration">4–6 hours</string>
+    <string name="historical_center_distance">5 km</string>
+    
     <string name="arbat_route">Arbat</string>
-    <string name="arbat_route_description">A walk through the historical district of Moscow with visits to Old Arbat, New Arbat, and adjacent streets.\n\nDuration: 2–3 hours\nDistance: 1.8 km\n\nRecommended visiting order:\n1. Arbat Square\n2. Old Arbat pedestrian street\n3. Pushkin House-Museum\n4. Christ the Savior Cathedral\n\nTips:\n• Start from Arbat Square\n• Walk along the pedestrian street Old Arbat\n• Visit the Pushkin Museum (paid entrance)\n• End the route at Christ the Savior Cathedral\n• You can buy souvenirs on Arbat</string>
+    <string name="arbat_description">Walk through the historical district of Moscow with visits to Old Arbat, New Arbat and adjacent streets.</string>
+    <string name="arbat_duration">2–3 hours</string>
+    <string name="arbat_distance">1.8 km</string>
+    
     <string name="golden_ring_route">Golden Ring</string>
-    <string name="golden_ring_route_description">A route through the main churches and monasteries of Moscow, including Christ the Savior Cathedral, Novodevichy Convent, and others.\n\nDuration: 4–5 hours\nDistance: 3.2 km\n\nRecommended visiting order:\n1. Christ the Savior Cathedral\n2. Novodevichy Convent\n3. Donskoy Monastery\n4. Danilov Monastery\n\nTips:\n• Start from Christ the Savior Cathedral\n• Use the metro between points\n• Visit Novodevichy Convent\n• End the route at Danilov Monastery</string>
+    <string name="golden_ring_description">Route through the main churches and monasteries of Moscow, including the Cathedral of Christ the Savior, Novodevichy Convent and others.</string>
+    <string name="golden_ring_duration">4–5 hours</string>
+    <string name="golden_ring_distance">3.2 km</string>
 
     <!-- Route Labels -->
     <string name="duration_label">Duration:</string>
@@ -126,4 +159,26 @@
     <string name="route_tip_photos">Bring a camera for memorable photos</string>
     <string name="route_tip_water">Carry water and snacks</string>
     <string name="route_tip_map">Download offline maps in advance</string>
+
+    <!-- Map-specific strings -->
+    <string name="show_on_map">Show on map</string>
+    <string name="show_route_on_map">Show route on map</string>
+    <string name="show_landmark_on_map">Show landmark on map</string>
+    <string name="map_loading">Loading map…</string>
+    <string name="map_error">Map loading error</string>
+    <string name="map_retry">Retry</string>
+    <string name="map_zoom_in">Zoom in</string>
+    <string name="map_zoom_out">Zoom out</string>
+    <string name="map_my_location">My location</string>
+    <string name="map_route_start">Route start</string>
+    <string name="map_route_end">Route end</string>
+    <string name="map_landmark">Landmark</string>
+
+    <!-- Tab Headers -->
+    <string name="historical_center">Historical Center</string>
+    <string name="cultural_places">Cultural Places</string>
+    <string name="red_square_area">Red Square Area</string>
+    <string name="museums">Museums</string>
+
+    <string name="tips">Tips</string>
 </resources> 

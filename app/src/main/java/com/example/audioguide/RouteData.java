@@ -1,6 +1,7 @@
 package com.example.audioguide;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RouteData {
@@ -8,87 +9,93 @@ public class RouteData {
 
     static {
         // Исторический центр Москвы
-        List<Landmark> historicalCenterLandmarks = new ArrayList<>();
-        historicalCenterLandmarks.add(new Landmark(
-            R.string.red_square,
-            R.string.red_square_short_description,
-            R.string.red_square_description,
-            "https://example.com/red_square.jpg",
-            55.7539,
-            37.6208
-        ));
-        historicalCenterLandmarks.add(new Landmark(
-            R.string.saint_basil,
-            R.string.saint_basil_short_description,
-            R.string.saint_basil_description,
-            "https://example.com/saint_basil.jpg",
-            55.7525,
-            37.6231
-        ));
-
+        List<String> historicalCenterLandmarks = Arrays.asList(
+            "red_square",
+            "saint_basil",
+            "kremlin",
+            "gum",
+            "lenin_mausoleum",
+            "alexander_garden",
+            "manege",
+            "historical_museum",
+            "kazan_cathedral"
+        );
+        
+        List<String> historicalCenterTips = Arrays.asList(
+            "route_tip_morning",
+            "route_tip_tickets",
+            "route_tip_comfort",
+            "route_tip_weather",
+            "route_tip_breaks",
+            "route_tip_transport",
+            "route_tip_guide",
+            "route_tip_photos",
+            "route_tip_water"
+        );
+        
         routes.add(new Route(
             R.string.historical_center_route,
             R.string.historical_center_description,
-            R.string.historical_center_description,
+            R.string.historical_center_duration,
+            R.string.historical_center_distance,
             historicalCenterLandmarks,
-            55.7539, 37.6208, // Красная площадь
-            55.7525, 37.6231  // Собор Василия Блаженного
+            historicalCenterTips
         ));
-
-        // Арбат
-        List<Landmark> arbatLandmarks = new ArrayList<>();
-        arbatLandmarks.add(new Landmark(
-            R.string.tretyakov,
-            R.string.tretyakov_short_description,
-            R.string.tretyakov_description,
-            "https://example.com/tretyakov.jpg",
-            55.7316,
-            37.6205
-        ));
-        arbatLandmarks.add(new Landmark(
-            R.string.bolshoi,
-            R.string.bolshoi_short_description,
-            R.string.bolshoi_description,
-            "https://example.com/bolshoi.jpg",
-            55.7601,
-            37.6186
-        ));
-
+        
+        // Культурные места
+        List<String> culturalLandmarks = Arrays.asList(
+            "tretyakov",
+            "bolshoi",
+            "manege"
+        );
+        
+        List<String> culturalTips = Arrays.asList(
+            "route_tip_morning",
+            "route_tip_tickets",
+            "route_tip_comfort",
+            "route_tip_weather",
+            "route_tip_breaks",
+            "route_tip_transport",
+            "route_tip_guide",
+            "route_tip_photos",
+            "route_tip_water"
+        );
+        
         routes.add(new Route(
-            R.string.arbat_route,
-            R.string.arbat_route_description,
-            R.string.arbat_route_description,
-            arbatLandmarks,
-            55.7316, 37.6205, // Третьяковская галерея
-            55.7601, 37.6186  // Большой театр
+            R.string.cultural_places,
+            R.string.cultural_places_description,
+            R.string.cultural_places_duration,
+            R.string.cultural_places_distance,
+            culturalLandmarks,
+            culturalTips
         ));
-
-        // Золотое кольцо
-        List<Landmark> goldenRingLandmarks = new ArrayList<>();
-        goldenRingLandmarks.add(new Landmark(
-            R.string.saint_basil,
-            R.string.saint_basil_short_description,
-            R.string.saint_basil_description,
-            "https://example.com/saint_basil.jpg",
-            55.7525,
-            37.6231
-        ));
-        goldenRingLandmarks.add(new Landmark(
-            R.string.kremlin,
-            R.string.kremlin_short_description,
-            R.string.kremlin_description,
-            "https://example.com/kremlin.jpg",
-            55.7520,
-            37.6175
-        ));
-
+        
+        // Музеи
+        List<String> museumLandmarks = Arrays.asList(
+            "tretyakov",
+            "historical_museum",
+            "manege"
+        );
+        
+        List<String> museumTips = Arrays.asList(
+            "route_tip_morning",
+            "route_tip_tickets",
+            "route_tip_comfort",
+            "route_tip_weather",
+            "route_tip_breaks",
+            "route_tip_transport",
+            "route_tip_guide",
+            "route_tip_photos",
+            "route_tip_water"
+        );
+        
         routes.add(new Route(
-            R.string.golden_ring_route,
-            R.string.golden_ring_route_description,
-            R.string.golden_ring_route_description,
-            goldenRingLandmarks,
-            55.7525, 37.6231, // Собор Василия Блаженного
-            55.7520, 37.6175  // Кремль
+            R.string.museums,
+            R.string.museums_description,
+            R.string.museums_duration,
+            R.string.museums_distance,
+            museumLandmarks,
+            museumTips
         ));
     }
 

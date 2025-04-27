@@ -4,56 +4,43 @@ import java.util.List;
 
 public class Route {
     private final int nameResId;
-    private final int shortDescriptionResId;
-    private final int fullDescriptionResId;
-    private final List<Landmark> landmarks;
-    private final double startLatitude;
-    private final double startLongitude;
-    private final double endLatitude;
-    private final double endLongitude;
+    private final int descriptionResId;
+    private final int durationResId;
+    private final int distanceResId;
+    private final List<String> landmarkIds;
+    private final List<String> tips;
 
-    public Route(int nameResId, int shortDescriptionResId, int fullDescriptionResId,
-                List<Landmark> landmarks, double startLatitude, double startLongitude,
-                double endLatitude, double endLongitude) {
+    public Route(int nameResId, int descriptionResId, int durationResId, int distanceResId,
+                List<String> landmarkIds, List<String> tips) {
         this.nameResId = nameResId;
-        this.shortDescriptionResId = shortDescriptionResId;
-        this.fullDescriptionResId = fullDescriptionResId;
-        this.landmarks = landmarks;
-        this.startLatitude = startLatitude;
-        this.startLongitude = startLongitude;
-        this.endLatitude = endLatitude;
-        this.endLongitude = endLongitude;
+        this.descriptionResId = descriptionResId;
+        this.durationResId = durationResId;
+        this.distanceResId = distanceResId;
+        this.landmarkIds = landmarkIds;
+        this.tips = tips;
     }
 
     public int getNameResId() {
         return nameResId;
     }
 
-    public int getShortDescriptionResId() {
-        return shortDescriptionResId;
+    public int getDescriptionResId() {
+        return descriptionResId;
     }
 
-    public int getFullDescriptionResId() {
-        return fullDescriptionResId;
+    public int getDurationResId() {
+        return durationResId;
     }
 
-    public List<Landmark> getLandmarks() {
-        return landmarks;
+    public int getDistanceResId() {
+        return distanceResId;
     }
 
-    public double getStartLatitude() {
-        return startLatitude;
+    public List<String> getLandmarkIds() {
+        return landmarkIds;
     }
 
-    public double getStartLongitude() {
-        return startLongitude;
-    }
-
-    public double getEndLatitude() {
-        return endLatitude;
-    }
-
-    public double getEndLongitude() {
-        return endLongitude;
+    public List<String> getTips() {
+        return tips;
     }
 } 

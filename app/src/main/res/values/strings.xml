@@ -11,11 +11,11 @@
     <!-- Авторизация -->
     <string name="sign_out">Выйти</string>
     <string name="skip_login">Продолжить без входа</string>
-    <string name="login_description">Войдите через Google для синхронизации настроек</string>
+    <string name="login_description">Войдите через Google, чтобы сохранять избранные маршруты и получать персональные рекомендации</string>
     <string name="sign_in_error">Ошибка входа</string>
-    <string name="sign_in_cancelled">Авторизация отменена</string>
+    <string name="sign_in_cancelled">Вход отменен</string>
     <string name="sign_in_success">Успешный вход</string>
-    <string name="sign_in_failed">Ошибка входа: проверьте подключение к интернету</string>
+    <string name="sign_in_failed">Не удалось войти. Попробуйте еще раз.</string>
     <string name="sign_in_init_error">Ошибка инициализации Google Sign-In</string>
     <string name="sign_in_processing_error">Ошибка обработки входа</string>
     <string name="sign_out_success">Успешный выход</string>
@@ -56,6 +56,8 @@
     <string name="error_network">Проверьте подключение к интернету</string>
     <string name="error_loading">Ошибка загрузки данных</string>
     <string name="error_app_start">Ошибка запуска приложения</string>
+    <string name="error_loading_route">Ошибка загрузки маршрута</string>
+    <string name="map_navigation_coming_soon">Навигация по маршруту появится в следующем обновлении</string>
     
     <!-- Общие -->
     <string name="ok">ОК</string>
@@ -66,11 +68,19 @@
 
     <!-- Маршруты -->
     <string name="historical_center_route">Исторический центр Москвы</string>
-    <string name="historical_center_description">Пешеходный маршрут по историческому центру Москвы, включающий Красную площадь, Кремль и другие знаковые места.\n\nПродолжительность: 4–6 часов\nРасстояние: 5 км\n\nРекомендуемый порядок посещения:\n1. Красная площадь и Собор Василия Блаженного\n2. Московский Кремль\n3. Александровский сад\n4. Большой театр\n5. Третьяковская галерея\n\nСоветы:\n• Начните маршрут утром\n• Купите билеты в музеи заранее\n• Обязательна удобная обувь</string>
+    <string name="historical_center_description">Пешеходный маршрут по историческому центру Москвы, включающий Красную площадь, Кремль и другие знаковые места.</string>
+    <string name="historical_center_duration">4–6 часов</string>
+    <string name="historical_center_distance">5 км</string>
+    
     <string name="arbat_route">Арбат</string>
-    <string name="arbat_route_description">Прогулка по историческому району Москвы с посещением Старого Арбата, Нового Арбата и прилегающих улиц.\n\nПродолжительность: 2–3 часа\nРасстояние: 1,8 км\n\nРекомендуемый порядок посещения:\n1. Арбатская площадь\n2. Пешеходная улица Старый Арбат\n3. Дом-музей Пушкина\n4. Храм Христа Спасителя\n\nСоветы:\n• Начните с Арбатской площади\n• Пройдите по пешеходной улице Старый Арбат\n• Посетите музей Пушкина (платный вход)\n• Завершите маршрут у Храма Христа Спасителя\n• На Арбате можно купить сувениры</string>
+    <string name="arbat_description">Прогулка по историческому району Москвы с посещением Старого Арбата, Нового Арбата и прилегающих улиц.</string>
+    <string name="arbat_duration">2–3 часа</string>
+    <string name="arbat_distance">1,8 км</string>
+    
     <string name="golden_ring_route">Золотое кольцо</string>
-    <string name="golden_ring_route_description">Маршрут по главным храмам и монастырям Москвы, включая Храм Христа Спасителя, Новодевичий монастырь и другие.\n\nПродолжительность: 4–5 часов\nРасстояние: 3,2 км\n\nРекомендуемый порядок посещения:\n1. Храм Христа Спасителя\n2. Новодевичий монастырь\n3. Донской монастырь\n4. Данилов монастырь\n\nСоветы:\n• Начните с Храма Христа Спасителя\n• Используйте метро между точками\n• Обязательно посетите Новодевичий монастырь\n• Завершите маршрут у Данилова монастыря</string>
+    <string name="golden_ring_description">Маршрут по главным храмам и монастырям Москвы, включая Храм Христа Спасителя, Новодевичий монастырь и другие.</string>
+    <string name="golden_ring_duration">4–5 часов</string>
+    <string name="golden_ring_distance">3,2 км</string>
 
     <!-- Метки маршрутов -->
     <string name="duration_label">Продолжительность:</string>
@@ -127,4 +137,62 @@
     <string name="route_tip_water">Возьмите воду и перекус</string>
     <string name="route_tip_map">Скачайте офлайн-карты заранее</string>
     <string name="show_on_map">Показать на карте</string>
+    <string name="show_route_on_map">Показать маршрут на карте</string>
+    <string name="show_landmark_on_map">Показать достопримечательность на карте</string>
+    <string name="map_loading">Загрузка карты…</string>
+    <string name="map_error">Ошибка загрузки карты</string>
+    <string name="map_retry">Повторить</string>
+    <string name="map_zoom_in">Приблизить</string>
+    <string name="map_zoom_out">Отдалить</string>
+    <string name="map_my_location">Мое местоположение</string>
+    <string name="map_route_start">Начало маршрута</string>
+    <string name="map_route_end">Конец маршрута</string>
+    <string name="map_landmark">Достопримечательность</string>
+
+    <!-- Новые достопримечательности -->
+    <string name="gum">ГУМ</string>
+    <string name="gum_description">Главный универсальный магазин — крупный торговый комплекс в центре Москвы, занимающий целый квартал Китай-города и выходящий главным фасадом на Красную площадь.\n\nПлощадь: 35 000 м²\nЭтажность: 3\n\nИстория:\n• Построен в 1893 году\n• В советское время был закрыт\n• Вновь открыт в 1953 году\n\nОсобенности:\n• Уникальная архитектура\n• Стеклянная крыша\n• Фонтаны в центре\n• Более 200 магазинов\n\nПрактическая информация:\n• Адрес: Красная площадь, 3\n• Время работы: 10:00-22:00</string>
+    <string name="gum_short_description">Исторический торговый комплекс на Красной площади</string>
+
+    <string name="lenin_mausoleum">Мавзолей Ленина</string>
+    <string name="lenin_mausoleum_description">Мавзолей В. И. Ленина — памятник-усыпальница на Красной площади у Кремлёвской стены, где с 1924 года покоится тело В. И. Ленина.\n\nВысота: 12 м\nПлощадь: 1 300 м²\n\nАрхитектурные особенности:\n• Гранитная облицовка\n• Ступенчатая форма\n• Трибуна для выступлений\n\nИстория:\n• Первый деревянный мавзолей построен в 1924\n• Современный каменный мавзолей построен в 1930\n• В 1953-1961 годах здесь также находилось тело Сталина</string>
+    <string name="lenin_mausoleum_short_description">Исторический мавзолей на Красной площади</string>
+
+    <string name="alexander_garden">Александровский сад</string>
+    <string name="alexander_garden_description">Александровский сад — парк в центре Москвы, расположенный вдоль западной стены Кремля.\n\nПлощадь: 10 га\nДлина: 865 м\n\nДостопримечательности:\n• Могила Неизвестного Солдата\n• Фонтанный комплекс\n• Итальянский грот\n• Обелиск в честь 300-летия дома Романовых\n\nИстория:\n• Заложен в 1820-1823 годах\n• Назван в честь императора Александра I\n• Реконструирован в 2012-2013 годах</string>
+    <string name="alexander_garden_short_description">Исторический парк у стен Кремля</string>
+
+    <string name="manege">Манеж</string>
+    <string name="manege_description">Центральный выставочный зал «Манеж» — крупнейший выставочный зал в центре Москвы.\n\nПлощадь: 4 500 м²\nВысота: 15 м\n\nИстория:\n• Построен в 1817 году\n• Восстановлен после пожара 2004 года\n• Современная реконструкция завершена в 2005\n\nОсобенности:\n• Уникальная безопорная конструкция\n• Современное выставочное оборудование\n• Центральное расположение\n\nПрактическая информация:\n• Адрес: Манежная площадь, 1\n• Время работы: 12:00-22:00</string>
+    <string name="manege_short_description">Крупнейший выставочный зал в центре Москвы</string>
+
+    <string name="historical_museum">Государственный исторический музей</string>
+    <string name="historical_museum_description">Государственный исторический музей — крупнейший национальный исторический музей России.\n\nПлощадь: 4 000 м²\nКоллекция: более 4,5 млн экспонатов\n\nЭкспозиции:\n• Древняя Русь\n• Московское царство\n• Российская империя\n• Советский период\n\nОсобенности:\n• Уникальное здание в псевдорусском стиле\n• Богатые интерьеры\n• Интерактивные экспонаты\n\nПрактическая информация:\n• Адрес: Красная площадь, 1\n• Время работы: пн-вс 10:00-18:00</string>
+    <string name="historical_museum_short_description">Крупнейший исторический музей России</string>
+
+    <string name="kazan_cathedral">Казанский собор</string>
+    <string name="kazan_cathedral_description">Казанский собор — православный храм на Красной площади, памятник русской архитектуры XVII века.\n\nВысота: 42 м\nПлощадь: 1 200 м²\n\nИстория:\n• Построен в 1625 году\n• Разрушен в 1936 году\n• Восстановлен в 1990-1993 годах\n\nАрхитектурные особенности:\n• Шатровое завершение\n• Богатое убранство фасадов\n• Иконостас в стиле XVII века\n\nПрактическая информация:\n• Адрес: Красная площадь\n• Время работы: 8:00-20:00</string>
+    <string name="kazan_cathedral_short_description">Православный храм на Красной площади</string>
+
+    <!-- Заголовки вкладок -->
+    <string name="historical_center">Исторический центр</string>
+    <string name="cultural_places">Культурные места</string>
+    <string name="red_square_area">Красная площадь</string>
+    <string name="museums">Музеи</string>
+
+    <string name="back">Назад</string>
+
+    <string name="tips">Советы</string>
+
+    <string name="cultural_places_description">Маршрут по главным культурным местам Москвы, включая Третьяковскую галерею, Большой театр и Манеж.</string>
+    <string name="cultural_places_duration">3–4 часа</string>
+    <string name="cultural_places_distance">2,5 км</string>
+    
+    <string name="museums_description">Маршрут по главным музеям Москвы, включая Третьяковскую галерею, Государственный исторический музей и Манеж.</string>
+    <string name="museums_duration">4–5 часов</string>
+    <string name="museums_distance">3 км</string>
+
+    <string name="welcome_message">Добро пожаловать в AudioGuide!</string>
+    <string name="app_description">Ваш персональный гид по самым интересным местам Москвы</string>
+    <string name="continue_as_guest">Продолжить как гость</string>
 </resources>

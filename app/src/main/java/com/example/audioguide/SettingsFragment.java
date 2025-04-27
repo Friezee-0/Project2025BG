@@ -11,8 +11,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Task;
 import androidx.annotation.Nullable;
+import android.content.Context;
+import android.content.SharedPreferences;
+import androidx.preference.PreferenceManager;
+import android.os.Handler;
+import android.os.Looper;
 
-public class SettingsFragment extends PreferenceFragmentCompat {
+public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final int RC_SIGN_IN = 9001;
     private SettingsManager settingsManager;
     private AuthManager authManager;
@@ -20,7 +25,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.preferences, rootKey);
-        settingsManager = new SettingsManager(requireContext());
+        settingsManager = SettingsManager.getInstance(requireContext());
         authManager = new AuthManager(requireContext());
 
         // Настройка кнопки входа через Google
@@ -70,6 +75,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 }
+                // Откладываем пересоздание активности
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    if (isAdded() && getActivity() != null) {
+                        getActivity().recreate();
+                    }
+                });
                 return true;
             });
         }
@@ -82,6 +93,45 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return true;
             });
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        PreferenceManager.getDefaultSharedPreferences(requireContext())
+                .registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        PreferenceManager.getDefaultSharedPreferences(requireContext())
+                .unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals("app_language")) {
+            String language = sharedPreferences.getString(key, "ru");
+            settingsManager.setAppLanguage(language);
+            requireActivity().recreate();
+        } else if (key.equals("tts_language")) {
+            String language = sharedPreferences.getString(key, "ru");
+            settingsManager.setTtsLanguage(language);
+        } else if (key.equals("theme")) {
+            String theme = sharedPreferences.getString(key, "light");
+            settingsManager.setTheme(theme);
+            requireActivity().recreate();
+        } else if (key.equals("voice")) {
+            String voice = sharedPreferences.getString(key, "default");
+            settingsManager.setVoice(voice);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        settingsManager.shutdown();
     }
 
     private void updateSignInPreference(Preference preference) {
@@ -122,5 +172,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         if (signInPref != null) {
             updateSignInPreference(signInPref);
         }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        settingsManager = SettingsManager.getInstance(requireContext());
     }
 } 

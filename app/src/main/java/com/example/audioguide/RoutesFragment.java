@@ -1,18 +1,25 @@
 package com.example.audioguide;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
-public class RoutesFragment extends Fragment implements RoutesAdapter.OnRouteClickListener {
+public class RoutesFragment extends Fragment implements 
+    RoutesAdapter.OnRouteClickListener,
+    OnRouteMapClickListener {
+    
     private RecyclerView recyclerView;
     private RoutesAdapter adapter;
+    private static final String TAG = "RoutesFragment";
+    private Route currentRoute;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -31,15 +38,31 @@ public class RoutesFragment extends Fragment implements RoutesAdapter.OnRouteCli
 
     @Override
     public void onRouteClick(Route route) {
-        RouteDetailsDialog dialog = RouteDetailsDialog.newInstance(
-            route.getNameResId(),
-            route.getFullDescriptionResId(),
-            route.getLandmarks(),
-            route.getStartLatitude(),
-            route.getStartLongitude(),
-            route.getEndLatitude(),
-            route.getEndLongitude()
-        );
-        dialog.show(getChildFragmentManager(), "route_details");
+        currentRoute = route;
+        showRouteDetails(route);
+    }
+
+    private void showRouteDetails(Route route) {
+        try {
+            RouteDetailsDialog dialog = RouteDetailsDialog.newInstance(
+                route.getNameResId(),
+                route.getDescriptionResId(),
+                route.getDurationResId(),
+                route.getDistanceResId(),
+                route.getLandmarkIds(),
+                route.getTips()
+            );
+            dialog.show(getChildFragmentManager(), "RouteDetailsDialog");
+        } catch (Exception e) {
+            Log.e("RoutesFragment", "Error showing route details", e);
+            Toast.makeText(requireContext(), R.string.error_loading_route, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onRouteMapClick() {
+        if (currentRoute != null && getActivity() instanceof MainActivity) {
+            ((MainActivity) getActivity()).showRouteOnMap(currentRoute);
+        }
     }
 } 

@@ -19,6 +19,7 @@ public class AuthManager {
     private static final String KEY_USER_NAME = "user_name";
     private static final String KEY_USER_EMAIL = "user_email";
     private static final String KEY_IS_GUEST = "is_guest";
+    private static final String KEY_FIRST_LAUNCH = "first_launch";
     
     private final Context context;
     private final SharedPreferences prefs;
@@ -28,13 +29,21 @@ public class AuthManager {
     public AuthManager(Context context) {
         this.context = context;
         this.prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        this.settingsManager = new SettingsManager(context);
+        this.settingsManager = SettingsManager.getInstance(context);
         
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
         
         this.googleSignInClient = GoogleSignIn.getClient(context, gso);
+    }
+
+    public boolean isFirstLaunch() {
+        return prefs.getBoolean(KEY_FIRST_LAUNCH, true);
+    }
+
+    public void setFirstLaunchComplete() {
+        prefs.edit().putBoolean(KEY_FIRST_LAUNCH, false).apply();
     }
 
     public Intent getSignInIntent() {
@@ -51,6 +60,7 @@ public class AuthManager {
             if (account != null) {
                 saveUserData(account);
                 settingsManager.setGuestMode(false);
+                setFirstLaunchComplete();
                 Log.i(TAG, "Sign in successful: " + account.getEmail());
             }
         } catch (ApiException e) {
@@ -90,6 +100,7 @@ public class AuthManager {
             editor.putBoolean(KEY_IS_GUEST, true);
             editor.apply();
             settingsManager.setGuestMode(true);
+            setFirstLaunchComplete();
         } catch (Exception e) {
             Log.e(TAG, "Error enabling guest mode: " + e.getMessage());
         }
@@ -114,7 +125,8 @@ public class AuthManager {
     }
 
     public boolean isSignedIn() {
-        return GoogleSignIn.getLastSignedInAccount(context) != null;
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
+        return account != null;
     }
 
     public boolean isGuest() {
@@ -127,5 +139,9 @@ public class AuthManager {
 
     public String getUserEmail() {
         return prefs.getString(KEY_USER_EMAIL, null);
+    }
+
+    public void setGuestMode(boolean enabled) {
+        prefs.edit().putBoolean(KEY_IS_GUEST, enabled).apply();
     }
 } 

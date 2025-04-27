@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
@@ -19,7 +20,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnRouteMapClickListener {
     private static final String TAG = "MainActivity";
     private static final int LOCATION_PERMISSION_REQUEST = 1001;
     
@@ -28,10 +29,12 @@ public class MainActivity extends AppCompatActivity {
     private SettingsManager settingsManager;
     private AudioGuideManager audioGuideManager;
     private AppBarConfiguration appBarConfiguration;
+    private Route currentRoute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        settingsManager = new SettingsManager(this);
+        super.onCreate(savedInstanceState);
+        settingsManager = SettingsManager.getInstance(this);
         String language = settingsManager.getAppLanguage();
         updateLocale(language);
         
@@ -41,10 +44,16 @@ public class MainActivity extends AppCompatActivity {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
         
-        super.onCreate(savedInstanceState);
+        authManager = new AuthManager(this);
+        
+        // Проверяем авторизацию
+        if (!authManager.isSignedIn() && !authManager.isGuest()) {
+            startLoginActivity();
+            return;
+        }
+        
         setContentView(R.layout.activity_main);
         
-        authManager = new AuthManager(this);
         audioGuideManager = new AudioGuideManager(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -174,19 +183,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startLoginActivity() {
-        try {
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-        } catch (Exception e) {
-            Log.e(TAG, "Error starting LoginActivity: " + e.getMessage());
-        }
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 
     @Override
     public boolean onSupportNavigateUp() {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onRouteMapClick() {
+        if (currentRoute != null) {
+            showRouteOnMap(currentRoute);
+        }
+    }
+
+    public void showRouteOnMap(Route route) {
+        currentRoute = route;
+        if (route != null) {
+            // TODO: Implement map navigation
+            Toast.makeText(this, R.string.map_navigation_coming_soon, Toast.LENGTH_SHORT).show();
+        }
     }
 } 
