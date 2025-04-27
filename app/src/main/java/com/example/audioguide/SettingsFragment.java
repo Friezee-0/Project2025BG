@@ -16,6 +16,7 @@ import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final int RC_SIGN_IN = 9001;
@@ -28,7 +29,14 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         settingsManager = SettingsManager.getInstance(requireContext());
         authManager = new AuthManager(requireContext());
 
-        // Настройка кнопки входа через Google
+        setupGoogleSignIn();
+        setupLanguagePreferences();
+        setupThemePreference();
+        setupVoicePreference();
+        setupAboutSection();
+    }
+
+    private void setupGoogleSignIn() {
         Preference signInPref = findPreference("google_sign_in");
         if (signInPref != null) {
             updateSignInPreference(signInPref);
@@ -43,39 +51,59 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 return true;
             });
         }
+    }
 
-        // Настройка языка интерфейса
+    private void setupLanguagePreferences() {
         ListPreference appLanguagePref = findPreference("app_language");
         if (appLanguagePref != null) {
+            appLanguagePref.setSummaryProvider(ListPreference.SimpleSummaryProvider.getInstance());
             appLanguagePref.setOnPreferenceChangeListener((preference, newValue) -> {
-                settingsManager.setAppLanguage((String) newValue);
-                // Перезапускаем активность для применения изменений языка
-                requireActivity().recreate();
-                return true;
+                try {
+                    settingsManager.setAppLanguage((String) newValue);
+                    // Используем Handler для безопасного пересоздания активности
+                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                        if (isAdded() && getActivity() != null && !getActivity().isFinishing()) {
+                            Intent intent = getActivity().getIntent();
+                            getActivity().finish();
+                            startActivity(intent);
+                        }
+                    }, 100);
+                    return true;
+                } catch (Exception e) {
+                    Log.e("SettingsFragment", "Error changing language", e);
+                    Toast.makeText(requireContext(), "Ошибка при смене языка", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
             });
         }
 
-        // Настройка языка озвучки
         ListPreference ttsLanguagePref = findPreference("tts_language");
         if (ttsLanguagePref != null) {
+            ttsLanguagePref.setSummaryProvider(ListPreference.SimpleSummaryProvider.getInstance());
             ttsLanguagePref.setOnPreferenceChangeListener((preference, newValue) -> {
-                settingsManager.setTtsLanguage((String) newValue);
-                return true;
+                try {
+                    settingsManager.setTtsLanguage((String) newValue);
+                    return true;
+                } catch (Exception e) {
+                    Log.e("SettingsFragment", "Error changing TTS language", e);
+                    Toast.makeText(requireContext(), "Ошибка при смене языка голоса", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
             });
         }
+    }
 
-        // Настройка темы
+    private void setupThemePreference() {
         ListPreference themePref = findPreference("theme");
         if (themePref != null) {
+            themePref.setSummaryProvider(ListPreference.SimpleSummaryProvider.getInstance());
             themePref.setOnPreferenceChangeListener((preference, newValue) -> {
                 settingsManager.setTheme((String) newValue);
-                // Применяем тему немедленно
                 if ("dark".equals(newValue)) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 }
-                // Откладываем пересоздание активности
                 new Handler(Looper.getMainLooper()).post(() -> {
                     if (isAdded() && getActivity() != null) {
                         getActivity().recreate();
@@ -84,12 +112,36 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 return true;
             });
         }
+    }
 
-        // Настройка голоса
+    private void setupVoicePreference() {
         ListPreference voicePref = findPreference("voice");
         if (voicePref != null) {
+            voicePref.setSummaryProvider(ListPreference.SimpleSummaryProvider.getInstance());
             voicePref.setOnPreferenceChangeListener((preference, newValue) -> {
                 settingsManager.setVoice((String) newValue);
+                return true;
+            });
+        }
+    }
+
+    private void setupAboutSection() {
+        Preference versionPref = findPreference("app_version");
+        if (versionPref != null) {
+            try {
+                String versionName = requireContext().getPackageManager()
+                    .getPackageInfo(requireContext().getPackageName(), 0).versionName;
+                versionPref.setSummary(versionName);
+            } catch (Exception e) {
+                Log.e("SettingsFragment", "Error getting version info", e);
+            }
+        }
+
+        Preference privacyPref = findPreference("privacy_policy");
+        if (privacyPref != null) {
+            privacyPref.setOnPreferenceClickListener(preference -> {
+                // TODO: Открыть политику конфиденциальности
+                Toast.makeText(requireContext(), "Coming soon", Toast.LENGTH_SHORT).show();
                 return true;
             });
         }
@@ -111,11 +163,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals("app_language")) {
-            String language = sharedPreferences.getString(key, "ru");
-            settingsManager.setAppLanguage(language);
-            requireActivity().recreate();
-        } else if (key.equals("tts_language")) {
+        if (key.equals("tts_language")) {
             String language = sharedPreferences.getString(key, "ru");
             settingsManager.setTtsLanguage(language);
         } else if (key.equals("theme")) {

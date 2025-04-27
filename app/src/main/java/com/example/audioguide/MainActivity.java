@@ -1,8 +1,11 @@
 package com.example.audioguide;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -90,20 +93,25 @@ public class MainActivity extends AppCompatActivity implements OnRouteMapClickLi
     private void updateLocale(String language) {
         Locale locale = new Locale(language);
         Locale.setDefault(locale);
-        android.content.res.Configuration config = new android.content.res.Configuration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        Resources resources = getResources();
+        Configuration config = new Configuration(resources.getConfiguration());
+        config.setLocale(locale);
+        
+        Context context = createConfigurationContext(config);
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
+        
+        // Обновляем конфигурацию базового контекста
+        getBaseContext().getResources().updateConfiguration(config, 
+            getBaseContext().getResources().getDisplayMetrics());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        // Проверяем, изменился ли язык
         String currentLanguage = settingsManager.getAppLanguage();
-        if (!currentLanguage.equals(Locale.getDefault().getLanguage())) {
+        if (!currentLanguage.equals(getResources().getConfiguration().getLocales().get(0).getLanguage())) {
             updateLocale(currentLanguage);
-            // Пересоздаем все фрагменты
-            recreateFragments();
+            recreate();
         }
     }
 

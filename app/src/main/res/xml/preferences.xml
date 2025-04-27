@@ -4,37 +4,42 @@
 
     <PreferenceCategory
         android:title="@string/account_settings"
-        android:iconSpaceReserved="false">
+        android:icon="@drawable/ic_account_circle"
+        app:iconSpaceReserved="true">
         
         <Preference
             android:key="google_sign_in"
             android:title="@string/google_sign_in"
             android:summary="@string/google_sign_in_summary"
-            android:iconSpaceReserved="false" />
+            android:icon="@drawable/ic_google"
+            app:iconSpaceReserved="true" />
             
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/app_settings"
-        android:iconSpaceReserved="false">
+        android:icon="@drawable/ic_settings"
+        app:iconSpaceReserved="true">
 
         <ListPreference
-            android:defaultValue="ru"
+            android:defaultValue="en"
             android:entries="@array/app_languages"
             android:entryValues="@array/app_language_values"
             android:key="app_language"
             android:title="@string/app_language"
-            android:iconSpaceReserved="false"
-            android:layout="@layout/preference_custom_layout" />
+            android:icon="@drawable/ic_language"
+            app:iconSpaceReserved="true"
+            android:summary="%s" />
 
         <ListPreference
-            android:defaultValue="ru"
+            android:defaultValue="en"
             android:entries="@array/tts_languages"
             android:entryValues="@array/tts_language_values"
             android:key="tts_language"
             android:title="@string/tts_language"
-            android:iconSpaceReserved="false"
-            android:layout="@layout/preference_custom_layout" />
+            android:icon="@drawable/ic_record_voice"
+            app:iconSpaceReserved="true"
+            android:summary="%s" />
 
         <ListPreference
             android:defaultValue="light"
@@ -42,8 +47,9 @@
             android:entryValues="@array/theme_values"
             android:key="theme"
             android:title="@string/theme"
-            android:iconSpaceReserved="false"
-            android:layout="@layout/preference_custom_layout" />
+            android:icon="@drawable/ic_theme"
+            app:iconSpaceReserved="true"
+            android:summary="%s" />
 
         <ListPreference
             android:defaultValue="default"
@@ -51,8 +57,28 @@
             android:entryValues="@array/voice_values"
             android:key="voice"
             android:title="@string/voice"
-            android:iconSpaceReserved="false"
-            android:layout="@layout/preference_custom_layout" />
+            android:icon="@drawable/ic_voice"
+            app:iconSpaceReserved="true"
+            android:summary="%s" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/about_app"
+        android:icon="@drawable/ic_info"
+        app:iconSpaceReserved="true">
+
+        <Preference
+            android:key="app_version"
+            android:title="@string/app_version"
+            android:icon="@drawable/ic_version"
+            app:iconSpaceReserved="true" />
+
+        <Preference
+            android:key="privacy_policy"
+            android:title="@string/privacy_policy"
+            android:icon="@drawable/ic_privacy"
+            app:iconSpaceReserved="true" />
 
     </PreferenceCategory>
 

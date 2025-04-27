@@ -2,14 +2,14 @@
 <resources>
     <!-- App Languages -->
     <string-array name="app_languages">
-        <item>Russian</item>
         <item>English</item>
+        <item>Russian</item>
     </string-array>
     
     <!-- TTS Languages -->
     <string-array name="tts_languages">
-        <item>Russian</item>
         <item>English</item>
+        <item>Russian</item>
     </string-array>
     
     <!-- Themes -->

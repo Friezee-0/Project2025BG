@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Аудиогид</string>
+    <string name="app_name">AudioGuide</string>
     
     <!-- Навигация -->
-    <string name="map">Карта</string>
-    <string name="landmarks">Достопримечательности</string>
-    <string name="routes">Маршруты</string>
-    <string name="settings">Настройки</string>
+    <string name="map">Map</string>
+    <string name="landmarks">Landmarks</string>
+    <string name="routes">Routes</string>
+    <string name="settings">Settings</string>
     
     <!-- Авторизация -->
-    <string name="sign_out">Выйти</string>
-    <string name="skip_login">Продолжить без входа</string>
-    <string name="login_description">Войдите через Google, чтобы сохранять избранные маршруты и получать персональные рекомендации</string>
-    <string name="sign_in_error">Ошибка входа</string>
-    <string name="sign_in_cancelled">Вход отменен</string>
-    <string name="sign_in_success">Успешный вход</string>
-    <string name="sign_in_failed">Не удалось войти. Попробуйте еще раз.</string>
-    <string name="sign_in_init_error">Ошибка инициализации Google Sign-In</string>
-    <string name="sign_in_processing_error">Ошибка обработки входа</string>
-    <string name="sign_out_success">Успешный выход</string>
+    <string name="sign_out">Sign out</string>
+    <string name="skip_login">Continue without login</string>
+    <string name="login_description">Sign in with Google to save favorite routes and get personalized recommendations</string>
+    <string name="sign_in_error">Sign in error</string>
+    <string name="sign_in_cancelled">Sign in cancelled</string>
+    <string name="sign_in_success">Successfully signed in</string>
+    <string name="sign_in_failed">Failed to sign in. Please try again.</string>
+    <string name="sign_in_init_error">Google Sign-In initialization error</string>
+    <string name="sign_in_processing_error">Sign in processing error</string>
+    <string name="sign_out_success">Successfully signed out</string>
     
     <!-- Настройки аккаунта -->
-    <string name="account_settings">Аккаунт</string>
-    <string name="google_sign_in">Войти через Google</string>
-    <string name="google_sign_in_summary">Синхронизация настроек между устройствами</string>
+    <string name="account_settings">Account</string>
+    <string name="google_sign_in">Sign in with Google</string>
+    <string name="google_sign_in_summary">Sync settings across devices</string>
     
     <!-- Настройки приложения -->
-    <string name="app_settings">Настройки приложения</string>
-    <string name="app_language">Язык интерфейса</string>
-    <string name="tts_language">Язык голоса</string>
-    <string name="theme">Тема</string>
-    <string name="voice">Голос</string>
-    <string name="light_theme">Светлая</string>
-    <string name="dark_theme">Темная</string>
+    <string name="app_settings">App Settings</string>
+    <string name="app_language">Interface Language</string>
+    <string name="tts_language">Voice Language</string>
+    <string name="theme">Theme</string>
+    <string name="voice">Voice</string>
+    <string name="light_theme">Light</string>
+    <string name="dark_theme">Dark</string>
     
     <!-- Достопримечательности -->
     <string name="red_square">Красная площадь</string>
@@ -192,7 +192,12 @@
     <string name="museums_duration">4–5 часов</string>
     <string name="museums_distance">3 км</string>
 
-    <string name="welcome_message">Добро пожаловать в AudioGuide!</string>
-    <string name="app_description">Ваш персональный гид по самым интересным местам Москвы</string>
-    <string name="continue_as_guest">Продолжить как гость</string>
+    <string name="welcome_message">Welcome to AudioGuide!</string>
+    <string name="app_description">Your personal guide to the most interesting places in Moscow</string>
+    <string name="continue_as_guest">Continue as guest</string>
+
+    <!-- О приложении -->
+    <string name="about_app">About App</string>
+    <string name="app_version">App Version</string>
+    <string name="privacy_policy">Privacy Policy</string>
 </resources>

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import java.util.Locale;
 
 public class SettingsManager {
@@ -14,6 +15,7 @@ public class SettingsManager {
     private static final String KEY_THEME = "theme";
     private static final String KEY_VOICE = "voice";
     private static final String KEY_IS_GUEST = "is_guest";
+    private static final String TAG = "SettingsManager";
     
     private static SettingsManager instance;
     private final SharedPreferences prefs;
@@ -21,8 +23,8 @@ public class SettingsManager {
     private TextToSpeech textToSpeech;
 
     public SettingsManager(Context context) {
-        this.context = context;
-        this.prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        this.context = context.getApplicationContext(); // Используем application context
+        this.prefs = this.context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         initTextToSpeech();
     }
 
@@ -42,37 +44,58 @@ public class SettingsManager {
     }
 
     public void setAppLanguage(String language) {
-        prefs.edit().putString(KEY_APP_LANGUAGE, language).apply();
-        updateLocale(language);
+        try {
+            prefs.edit().putString(KEY_APP_LANGUAGE, language).apply();
+            updateLocale(language);
+        } catch (Exception e) {
+            Log.e(TAG, "Error setting app language", e);
+        }
     }
 
     public String getAppLanguage() {
-        return prefs.getString(KEY_APP_LANGUAGE, "ru");
+        return prefs.getString(KEY_APP_LANGUAGE, "en");
     }
 
     public void setTtsLanguage(String language) {
-        prefs.edit().putString(KEY_TTS_LANGUAGE, language).apply();
-        if (textToSpeech != null) {
-            Locale locale = language.equals("ru") ? new Locale("ru") : Locale.ENGLISH;
-            textToSpeech.setLanguage(locale);
+        try {
+            prefs.edit().putString(KEY_TTS_LANGUAGE, language).apply();
+            if (textToSpeech != null) {
+                Locale locale = language.equals("ru") ? new Locale("ru") : Locale.ENGLISH;
+                int result = textToSpeech.setLanguage(locale);
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Log.e(TAG, "Language not supported: " + language);
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error setting TTS language", e);
         }
     }
 
     public String getTTSLanguage() {
-        return prefs.getString(KEY_TTS_LANGUAGE, "ru");
+        return prefs.getString(KEY_TTS_LANGUAGE, "en");
     }
 
     private void updateLocale(String language) {
-        Locale locale = new Locale(language);
-        Locale.setDefault(locale);
-        
-        Resources resources = context.getResources();
-        Configuration config = new Configuration(resources.getConfiguration());
-        config.setLocale(locale);
-        config.setLayoutDirection(locale);
-        
-        context.createConfigurationContext(config);
-        resources.updateConfiguration(config, resources.getDisplayMetrics());
+        try {
+            Locale locale = new Locale(language);
+            Locale.setDefault(locale);
+            
+            Resources resources = context.getResources();
+            Configuration config = new Configuration(resources.getConfiguration());
+            config.setLocale(locale);
+            
+            Context updatedContext = context.createConfigurationContext(config);
+            resources.updateConfiguration(config, resources.getDisplayMetrics());
+            
+            // Обновляем ресурсы в application context
+            Context appContext = context.getApplicationContext();
+            if (appContext != null) {
+                appContext.getResources().updateConfiguration(config, 
+                    appContext.getResources().getDisplayMetrics());
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error updating locale", e);
+        }
     }
 
     public void setTheme(String theme) {
