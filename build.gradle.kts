@@ -2,3 +2,14 @@
 plugins {
     alias(libs.plugins.android.application) apply false
 }
+
+// Настройки для решения проблем с кэшем
+allprojects {
+    tasks.withType<org.gradle.api.tasks.Delete> {
+        doLast {
+            delete(fileTree("${project.buildDir}") {
+                include("**/*.bin")
+            })
+        }
+    }
+}

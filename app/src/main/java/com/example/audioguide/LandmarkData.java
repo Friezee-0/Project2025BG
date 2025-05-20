@@ -2,112 +2,130 @@ package com.example.audioguide;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LandmarkData {
-    public static List<Landmark> getLandmarks() {
-        List<Landmark> landmarks = new ArrayList<>();
-        
-        // Красная площадь и окрестности
-        landmarks.add(new Landmark(
-            R.string.red_square,
+    private static final Map<String, Landmark> landmarks = new HashMap<>();
+
+    static {
+        // Инициализация достопримечательностей
+        landmarks.put("red_square", new Landmark(
+            "red_square",
+            R.string.red_square_name,
             R.string.red_square_short_description,
-            R.string.red_square_description,
-            "https://example.com/red_square.jpg",
+            R.string.red_square_full_description,
+            R.drawable.red_square,
             55.7539,
             37.6208
         ));
         
-        landmarks.add(new Landmark(
-            R.string.saint_basil,
+        landmarks.put("saint_basil", new Landmark(
+            "saint_basil",
+            R.string.saint_basil_name,
             R.string.saint_basil_short_description,
-            R.string.saint_basil_description,
-            "https://example.com/saint_basil.jpg",
+            R.string.saint_basil_full_description,
+            R.drawable.saint_basil,
             55.7525,
             37.6231
         ));
         
-        landmarks.add(new Landmark(
-            R.string.kremlin,
+        landmarks.put("kremlin", new Landmark(
+            "kremlin",
+            R.string.kremlin_name,
             R.string.kremlin_short_description,
-            R.string.kremlin_description,
-            "https://example.com/kremlin.jpg",
+            R.string.kremlin_full_description,
+            R.drawable.kremlin,
             55.7520,
             37.6175
         ));
         
-        landmarks.add(new Landmark(
-            R.string.gum,
+        landmarks.put("gum", new Landmark(
+            "gum",
+            R.string.gum_name,
             R.string.gum_short_description,
-            R.string.gum_description,
-            "https://example.com/gum.jpg",
-            55.7544,
-            37.6217
-        ));
-        
-        landmarks.add(new Landmark(
-            R.string.lenin_mausoleum,
-            R.string.lenin_mausoleum_short_description,
-            R.string.lenin_mausoleum_description,
-            "https://example.com/lenin_mausoleum.jpg",
-            55.7539,
-            37.6218
-        ));
-        
-        landmarks.add(new Landmark(
-            R.string.alexander_garden,
-            R.string.alexander_garden_short_description,
-            R.string.alexander_garden_description,
-            "https://example.com/alexander_garden.jpg",
-            55.7528,
-            37.6136
-        ));
-        
-        landmarks.add(new Landmark(
-            R.string.manege,
-            R.string.manege_short_description,
-            R.string.manege_description,
-            "https://example.com/manege.jpg",
-            55.7558,
-            37.6139
-        ));
-        
-        landmarks.add(new Landmark(
-            R.string.historical_museum,
-            R.string.historical_museum_short_description,
-            R.string.historical_museum_description,
-            "https://example.com/historical_museum.jpg",
-            55.7558,
-            37.6189
-        ));
-        
-        landmarks.add(new Landmark(
-            R.string.kazan_cathedral,
-            R.string.kazan_cathedral_short_description,
-            R.string.kazan_cathedral_description,
-            "https://example.com/kazan_cathedral.jpg",
+            R.string.gum_full_description,
+            R.drawable.gum,
             55.7547,
-            37.6197
+            37.6214
         ));
         
-        // Культурные места
-        landmarks.add(new Landmark(
-            R.string.tretyakov,
+        landmarks.put("lenin_mausoleum", new Landmark(
+            "lenin_mausoleum",
+            R.string.lenin_mausoleum_name,
+            R.string.lenin_mausoleum_short_description,
+            R.string.lenin_mausoleum_full_description,
+            R.drawable.lenin_mausoleum,
+            55.7539,
+            37.6208
+        ));
+        
+        landmarks.put("alexander_garden", new Landmark(
+            "alexander_garden",
+            R.string.alexander_garden_name,
+            R.string.alexander_garden_short_description,
+            R.string.alexander_garden_full_description,
+            R.drawable.alexander_garden,
+            55.7520,
+            37.6175
+        ));
+        
+        landmarks.put("manege", new Landmark(
+            "manege",
+            R.string.manege_name,
+            R.string.manege_short_description,
+            R.string.manege_full_description,
+            R.drawable.manege,
+            55.7520,
+            37.6175
+        ));
+        
+        landmarks.put("historical_museum", new Landmark(
+            "historical_museum",
+            R.string.historical_museum_name,
+            R.string.historical_museum_short_description,
+            R.string.historical_museum_full_description,
+            R.drawable.historical_museum,
+            55.7547,
+            37.6214
+        ));
+
+        landmarks.put("tretyakov", new Landmark(
+            "tretyakov",
+            R.string.tretyakov_name,
             R.string.tretyakov_short_description,
-            R.string.tretyakov_description,
-            "https://example.com/tretyakov.jpg",
+            R.string.tretyakov_full_description,
+            R.drawable.tretyakov,
             55.7415,
             37.6208
         ));
         
-        landmarks.add(new Landmark(
-            R.string.bolshoi,
+        landmarks.put("bolshoi", new Landmark(
+            "bolshoi",
+            R.string.bolshoi_name,
             R.string.bolshoi_short_description,
-            R.string.bolshoi_description,
-            "https://example.com/bolshoi.jpg",
+            R.string.bolshoi_full_description,
+            R.drawable.bolshoi,
             55.7602,
             37.6186
         ));
-        
-        return landmarks;
+
+        landmarks.put("novokosino_memorial", new Landmark(
+            "novokosino_memorial",
+            R.string.novokosino_memorial_name,
+            R.string.novokosino_memorial_short_description,
+            R.string.novokosino_memorial_full_description,
+            R.drawable.novokosino_memorial,
+            55.738917,
+            37.882944
+        ));
+    }
+
+    public static Landmark getLandmarkById(String id) {
+        return landmarks.get(id);
+    }
+
+    public static List<Landmark> getLandmarks() {
+        return new ArrayList<>(landmarks.values());
     }
 } 

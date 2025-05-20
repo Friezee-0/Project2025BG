@@ -29,4 +29,14 @@
         android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
 
+    <fragment
+        android:id="@+id/navigation_landmark_details"
+        android:name="com.example.audioguide.LandmarkDetailsFragment"
+        android:label="@string/landmark_details"
+        tools:layout="@layout/fragment_landmark_details">
+        <argument
+            android:name="landmark_id"
+            app:argType="string" />
+    </fragment>
+
 </navigation> 

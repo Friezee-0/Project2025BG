@@ -21,12 +21,14 @@ import com.google.android.material.button.MaterialButton;
 public class LoginActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private ActivityResultLauncher<Intent> signInLauncher;
+    private AuthManager authManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        authManager = new AuthManager(this);
         initializeGoogleSignIn();
         setupViews();
         setupSignInLauncher();
@@ -78,6 +80,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void continueAsGuest() {
+        authManager.enableGuestMode();
         startMainActivity();
     }
 

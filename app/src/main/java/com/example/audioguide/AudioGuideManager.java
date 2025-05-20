@@ -51,92 +51,93 @@ public class AudioGuideManager implements LocationListener {
 
     private void initializeLandmarks() {
         landmarks.put("red_square", new Landmark(
-            R.string.red_square,
-            R.string.red_square_description,
+            "red_square",
+            R.string.red_square_name,
             R.string.red_square_short_description,
-            "https://example.com/red_square.jpg",
+            R.string.red_square_full_description,
+            R.drawable.red_square,
             55.7539, 37.6208
         ));
 
         landmarks.put("saint_basil", new Landmark(
-            R.string.saint_basil,
-            R.string.saint_basil_description,
+            "saint_basil",
+            R.string.saint_basil_name,
             R.string.saint_basil_short_description,
-            "https://example.com/saint_basil.jpg",
+            R.string.saint_basil_full_description,
+            R.drawable.saint_basil,
             55.7525, 37.6231
         ));
 
         landmarks.put("kremlin", new Landmark(
-            R.string.kremlin,
-            R.string.kremlin_description,
+            "kremlin",
+            R.string.kremlin_name,
             R.string.kremlin_short_description,
-            "https://example.com/kremlin.jpg",
+            R.string.kremlin_full_description,
+            R.drawable.kremlin,
             55.7520, 37.6175
         ));
 
         landmarks.put("tretyakov", new Landmark(
-            R.string.tretyakov,
-            R.string.tretyakov_description,
+            "tretyakov",
+            R.string.tretyakov_name,
             R.string.tretyakov_short_description,
-            "https://example.com/tretyakov.jpg",
+            R.string.tretyakov_full_description,
+            R.drawable.tretyakov,
             55.7415, 37.6208
         ));
 
         landmarks.put("bolshoi", new Landmark(
-            R.string.bolshoi,
-            R.string.bolshoi_description,
+            "bolshoi",
+            R.string.bolshoi_name,
             R.string.bolshoi_short_description,
-            "https://example.com/bolshoi.jpg",
+            R.string.bolshoi_full_description,
+            R.drawable.bolshoi,
             55.7602, 37.6186
         ));
 
-        // Новые достопримечательности
         landmarks.put("gum", new Landmark(
-            R.string.gum,
-            R.string.gum_description,
+            "gum",
+            R.string.gum_name,
             R.string.gum_short_description,
-            "https://example.com/gum.jpg",
-            55.7544, 37.6217
+            R.string.gum_full_description,
+            R.drawable.gum,
+            55.7547, 37.6214
         ));
 
         landmarks.put("lenin_mausoleum", new Landmark(
-            R.string.lenin_mausoleum,
-            R.string.lenin_mausoleum_description,
+            "lenin_mausoleum",
+            R.string.lenin_mausoleum_name,
             R.string.lenin_mausoleum_short_description,
-            "https://example.com/lenin_mausoleum.jpg",
-            55.7539, 37.6218
+            R.string.lenin_mausoleum_full_description,
+            R.drawable.lenin_mausoleum,
+            55.7539, 37.6208
         ));
 
         landmarks.put("alexander_garden", new Landmark(
-            R.string.alexander_garden,
-            R.string.alexander_garden_description,
+            "alexander_garden",
+            R.string.alexander_garden_name,
             R.string.alexander_garden_short_description,
-            "https://example.com/alexander_garden.jpg",
-            55.7528, 37.6136
+            R.string.alexander_garden_full_description,
+            R.drawable.alexander_garden,
+            55.7520, 37.6175
         ));
 
         landmarks.put("manege", new Landmark(
-            R.string.manege,
-            R.string.manege_description,
+            "manege",
+            R.string.manege_name,
             R.string.manege_short_description,
-            "https://example.com/manege.jpg",
-            55.7558, 37.6139
+            R.string.manege_full_description,
+            R.drawable.manege,
+            55.7520, 37.6175
         ));
 
         landmarks.put("historical_museum", new Landmark(
-            R.string.historical_museum,
-            R.string.historical_museum_description,
+            "historical_museum",
+            R.string.historical_museum_name,
             R.string.historical_museum_short_description,
-            "https://example.com/historical_museum.jpg",
-            55.7558, 37.6189
-        ));
-
-        landmarks.put("kazan_cathedral", new Landmark(
-            R.string.kazan_cathedral,
-            R.string.kazan_cathedral_description,
-            R.string.kazan_cathedral_short_description,
-            "https://example.com/kazan_cathedral.jpg",
-            55.7547, 37.6197
+            R.string.historical_museum_full_description,
+            R.drawable.historical_museum,
+            55.7547, 37.6214
         ));
     }
 
@@ -163,6 +164,7 @@ public class AudioGuideManager implements LocationListener {
             
             if (!historicalCenterLandmarks.isEmpty()) {
                 routes.add(new Route(
+                    "historical_center",
                     R.string.historical_center_route,
                     R.string.historical_center_description,
                     R.string.historical_center_duration,
@@ -190,6 +192,7 @@ public class AudioGuideManager implements LocationListener {
             
             if (!arbatLandmarks.isEmpty()) {
                 routes.add(new Route(
+                    "arbat",
                     R.string.arbat_route,
                     R.string.arbat_description,
                     R.string.arbat_duration,
@@ -202,7 +205,6 @@ public class AudioGuideManager implements LocationListener {
             // Золотое кольцо
             List<String> goldenRingLandmarks = new ArrayList<>(Arrays.asList(
                 "saint_basil",
-                "kazan_cathedral",
                 "tretyakov"
             ));
             
@@ -217,6 +219,7 @@ public class AudioGuideManager implements LocationListener {
             
             if (!goldenRingLandmarks.isEmpty()) {
                 routes.add(new Route(
+                    "golden_ring",
                     R.string.golden_ring_route,
                     R.string.golden_ring_description,
                     R.string.golden_ring_duration,

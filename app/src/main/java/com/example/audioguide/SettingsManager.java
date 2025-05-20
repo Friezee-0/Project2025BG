@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import java.util.Locale;
 
 public class SettingsManager {
@@ -44,6 +45,7 @@ public class SettingsManager {
     public void setAppLanguage(String language) {
         prefs.edit().putString(KEY_APP_LANGUAGE, language).apply();
         updateLocale(language);
+        setTtsLanguage(language);
     }
 
     public String getAppLanguage() {
@@ -53,8 +55,19 @@ public class SettingsManager {
     public void setTtsLanguage(String language) {
         prefs.edit().putString(KEY_TTS_LANGUAGE, language).apply();
         if (textToSpeech != null) {
-            Locale locale = language.equals("ru") ? new Locale("ru") : Locale.ENGLISH;
-            textToSpeech.setLanguage(locale);
+            Locale locale;
+            if (language.equals("ru")) {
+                locale = new Locale("ru");
+            } else if (language.equals("en")) {
+                locale = Locale.ENGLISH;
+            } else {
+                locale = Locale.getDefault();
+            }
+            int result = textToSpeech.setLanguage(locale);
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("SettingsManager", "Language not supported: " + language);
+                textToSpeech.setLanguage(Locale.getDefault());
+            }
         }
     }
 

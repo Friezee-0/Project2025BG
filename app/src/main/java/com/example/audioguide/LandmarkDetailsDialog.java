@@ -17,60 +17,26 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.example.audioguide.service.TTSService;
 
 public class LandmarkDetailsDialog extends DialogFragment {
     private static final String TAG = "LandmarkDetailsDialog";
-    private static final String ARG_NAME_RES_ID = "name_res_id";
-    private static final String ARG_SHORT_DESCRIPTION_RES_ID = "short_description_res_id";
-    private static final String ARG_FULL_DESCRIPTION_RES_ID = "full_description_res_id";
-    private static final String ARG_IMAGE_URL = "image_url";
-    private static final String ARG_LATITUDE = "latitude";
-    private static final String ARG_LONGITUDE = "longitude";
+    private static final String ARG_LANDMARK_ID = "landmark_id";
+    private Landmark landmark;
+    private TTSService ttsService;
+    private boolean isPlaying = false;
 
-    private int nameResId;
-    private int shortDescriptionResId;
-    private int fullDescriptionResId;
-    private String imageUrl;
-    private double latitude;
-    private double longitude;
-    private OnAudioPlayClickListener listener;
-
-    public interface OnAudioPlayClickListener {
-        void onPlayAudio(LandmarkDetailsDialog dialog);
-    }
-
-    public static LandmarkDetailsDialog newInstance(int nameResId, int shortDescriptionResId,
-                                                  int fullDescriptionResId, String imageUrl,
-                                                  double latitude, double longitude) {
+    public static LandmarkDetailsDialog newInstance(String landmarkId) {
         LandmarkDetailsDialog dialog = new LandmarkDetailsDialog();
         Bundle args = new Bundle();
-        args.putInt(ARG_NAME_RES_ID, nameResId);
-        args.putInt(ARG_SHORT_DESCRIPTION_RES_ID, shortDescriptionResId);
-        args.putInt(ARG_FULL_DESCRIPTION_RES_ID, fullDescriptionResId);
-        args.putString(ARG_IMAGE_URL, imageUrl);
-        args.putDouble(ARG_LATITUDE, latitude);
-        args.putDouble(ARG_LONGITUDE, longitude);
+        args.putString(ARG_LANDMARK_ID, landmarkId);
         dialog.setArguments(args);
         return dialog;
     }
 
     @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        try {
-            listener = (OnAudioPlayClickListener) context;
-        } catch (ClassCastException e) {
-            Log.e(TAG, "Context must implement OnAudioPlayClickListener", e);
-        }
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int themeResId = SettingsManager.getInstance(requireContext()).isDarkTheme() ? 
-            R.style.DialogThemeDark : R.style.DialogTheme;
-        setStyle(DialogFragment.STYLE_NORMAL, themeResId);
-        
         try {
             Bundle args = getArguments();
             if (args == null) {
@@ -78,14 +44,27 @@ public class LandmarkDetailsDialog extends DialogFragment {
                 dismiss();
                 return;
             }
-            nameResId = args.getInt(ARG_NAME_RES_ID);
-            shortDescriptionResId = args.getInt(ARG_SHORT_DESCRIPTION_RES_ID);
-            fullDescriptionResId = args.getInt(ARG_FULL_DESCRIPTION_RES_ID);
-            imageUrl = args.getString(ARG_IMAGE_URL);
-            latitude = args.getDouble(ARG_LATITUDE);
-            longitude = args.getDouble(ARG_LONGITUDE);
+
+            String landmarkId = args.getString(ARG_LANDMARK_ID);
+            if (landmarkId == null) {
+                Log.e(TAG, "Landmark ID is null");
+                dismiss();
+                return;
+            }
+
+            landmark = LandmarkData.getLandmarkById(landmarkId);
+            if (landmark == null) {
+                Log.e(TAG, "Landmark not found: " + landmarkId);
+                dismiss();
+                return;
+            }
+
+            ttsService = TTSService.getInstance(requireContext());
+            int themeResId = SettingsManager.getInstance(requireContext()).isDarkTheme() ? 
+                R.style.DialogThemeDark : R.style.DialogTheme;
+            setStyle(DialogFragment.STYLE_NORMAL, themeResId);
         } catch (Exception e) {
-            Log.e(TAG, "Error initializing dialog", e);
+            Log.e(TAG, "Error in onCreate: " + e.getMessage());
             dismiss();
         }
     }
@@ -93,62 +72,86 @@ public class LandmarkDetailsDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
         try {
-            if (nameResId != 0) {
-                dialog.setTitle(getString(nameResId));
+            Dialog dialog = super.onCreateDialog(savedInstanceState);
+            if (landmark != null) {
+                dialog.setTitle(getString(landmark.getNameResId()));
             }
+            return dialog;
         } catch (Exception e) {
-            Log.e(TAG, "Error setting dialog title", e);
+            Log.e(TAG, "Error creating dialog: " + e.getMessage());
+            return super.onCreateDialog(savedInstanceState);
         }
-        return dialog;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_landmark_details, container, false);
-
         try {
+            View view = inflater.inflate(R.layout.dialog_landmark_details, container, false);
+            
+            if (landmark == null) {
+                Log.e(TAG, "Landmark is null");
+                dismiss();
+                return view;
+            }
+
+            TextView titleView = view.findViewById(R.id.landmark_title);
+            TextView descriptionView = view.findViewById(R.id.landmark_description);
             ImageView imageView = view.findViewById(R.id.landmark_image);
-            TextView titleTextView = view.findViewById(R.id.landmark_title);
-            TextView shortDescriptionTextView = view.findViewById(R.id.landmark_short_description);
-            TextView descriptionTextView = view.findViewById(R.id.landmark_description);
-            TextView coordinatesTextView = view.findViewById(R.id.landmark_coordinates);
+            Button showOnMapButton = view.findViewById(R.id.show_on_map_button);
             Button playAudioButton = view.findViewById(R.id.play_audio_button);
 
-            // Загрузка изображения
-            if (imageUrl != null && !imageUrl.isEmpty()) {
-                Glide.with(this)
-                        .load(imageUrl)
-                        .placeholder(R.drawable.placeholder)
-                        .error(R.drawable.error)
-                        .transition(DrawableTransitionOptions.withCrossFade())
-                        .into(imageView);
+            if (titleView == null || descriptionView == null || imageView == null || 
+                showOnMapButton == null || playAudioButton == null) {
+                Log.e(TAG, "Required views are missing");
+                dismiss();
+                return view;
             }
 
-            if (nameResId != 0) {
-                titleTextView.setText(getString(nameResId));
-            }
-            if (shortDescriptionResId != 0) {
-                shortDescriptionTextView.setText(getString(shortDescriptionResId));
-            }
-            if (fullDescriptionResId != 0) {
-                descriptionTextView.setText(getString(fullDescriptionResId));
-            }
-            coordinatesTextView.setText(String.format("%.6f, %.6f", latitude, longitude));
+            try {
+                titleView.setText(getString(landmark.getNameResId()));
+                descriptionView.setText(getString(landmark.getFullDescriptionResId()));
 
-            playAudioButton.setOnClickListener(v -> {
-                if (listener != null) {
-                    listener.onPlayAudio(this);
+                if (landmark.getImageResId() != 0) {
+                    imageView.setImageResource(landmark.getImageResId());
+                    imageView.setContentDescription(getString(R.string.landmark_image_description));
                 }
-            });
-        } catch (Exception e) {
-            Log.e(TAG, "Error initializing dialog view", e);
-        }
 
-        return view;
+                showOnMapButton.setOnClickListener(v -> {
+                    if (getActivity() instanceof MainActivity) {
+                        ((MainActivity) getActivity()).showLandmarkOnMap(landmark);
+                    }
+                    dismiss();
+                });
+
+                // Настраиваем кнопку воспроизведения аудио
+                playAudioButton.setOnClickListener(v -> {
+                    if (!isPlaying) {
+                        String description = getString(landmark.getFullDescriptionResId());
+                        ttsService.addLandmarkText(landmark.getId(), description);
+                        ttsService.speakLandmark(landmark.getId());
+                        playAudioButton.setText(R.string.route_stop_guide);
+                        isPlaying = true;
+                    } else {
+                        ttsService.stopSpeaking();
+                        playAudioButton.setText(R.string.play_audio);
+                        isPlaying = false;
+                    }
+                });
+
+            } catch (Exception e) {
+                Log.e(TAG, "Error setting up views: " + e.getMessage());
+                dismiss();
+                return view;
+            }
+
+            return view;
+        } catch (Exception e) {
+            Log.e(TAG, "Error creating view: " + e.getMessage());
+            return super.onCreateView(inflater, container, savedInstanceState);
+        }
     }
 
     @Override
@@ -184,8 +187,19 @@ public class LandmarkDetailsDialog extends DialogFragment {
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        listener = null;
+    public void onPause() {
+        super.onPause();
+        if (ttsService != null) {
+            ttsService.stopSpeaking();
+            isPlaying = false;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (ttsService != null && landmark != null) {
+            ttsService.removeLandmarkText(landmark.getId());
+        }
     }
 } 

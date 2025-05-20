@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import org.osmdroid.util.GeoPoint;
 import java.util.List;
 
 public class RoutesFragment extends Fragment implements 
@@ -60,9 +61,27 @@ public class RoutesFragment extends Fragment implements
     }
 
     @Override
-    public void onRouteMapClick() {
+    public void onRouteMapClick(GeoPoint position) {
         if (currentRoute != null && getActivity() instanceof MainActivity) {
             ((MainActivity) getActivity()).showRouteOnMap(currentRoute);
+        }
+    }
+
+    @Override
+    public void onRouteMarkerClick(String routeId) {
+        Route route = RouteData.getRouteById(routeId);
+        if (route != null) {
+            currentRoute = route;
+            showRouteDetails(route);
+        }
+    }
+
+    @Override
+    public void onRoutePolylineClick(String routeId) {
+        Route route = RouteData.getRouteById(routeId);
+        if (route != null) {
+            currentRoute = route;
+            showRouteDetails(route);
         }
     }
 } 

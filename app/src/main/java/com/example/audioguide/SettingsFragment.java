@@ -16,6 +16,7 @@ import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
 import android.os.Handler;
 import android.os.Looper;
+import com.example.audioguide.service.TTSService;
 
 public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final int RC_SIGN_IN = 9001;
@@ -48,7 +49,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         ListPreference appLanguagePref = findPreference("app_language");
         if (appLanguagePref != null) {
             appLanguagePref.setOnPreferenceChangeListener((preference, newValue) -> {
-                settingsManager.setAppLanguage((String) newValue);
+                String language = (String) newValue;
+                settingsManager.setAppLanguage(language);
                 // Перезапускаем активность для применения изменений языка
                 requireActivity().recreate();
                 return true;
@@ -59,7 +61,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         ListPreference ttsLanguagePref = findPreference("tts_language");
         if (ttsLanguagePref != null) {
             ttsLanguagePref.setOnPreferenceChangeListener((preference, newValue) -> {
-                settingsManager.setTtsLanguage((String) newValue);
+                String language = (String) newValue;
+                settingsManager.setTtsLanguage(language);
+                TTSService.getInstance(requireContext()).updateLanguage(language);
                 return true;
             });
         }
@@ -69,7 +73,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         if (themePref != null) {
             themePref.setOnPreferenceChangeListener((preference, newValue) -> {
                 settingsManager.setTheme((String) newValue);
-                // Применяем тему немедленно
+                // Применяем тему
                 if ("dark".equals(newValue)) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 } else {

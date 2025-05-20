@@ -18,7 +18,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import org.osmdroid.util.GeoPoint;
 import java.util.Locale;
+import androidx.navigation.Navigation;
 
 public class MainActivity extends AppCompatActivity implements OnRouteMapClickListener {
     private static final String TAG = "MainActivity";
@@ -67,7 +69,9 @@ public class MainActivity extends AppCompatActivity implements OnRouteMapClickLi
                 navController = navHostFragment.getNavController();
                 
                 BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-                NavigationUI.setupWithNavController(bottomNav, navController);
+                if (bottomNav != null) {
+                    NavigationUI.setupWithNavController(bottomNav, navController);
+                }
 
                 appBarConfiguration = new AppBarConfiguration.Builder(
                     R.id.navigation_map,
@@ -79,9 +83,11 @@ public class MainActivity extends AppCompatActivity implements OnRouteMapClickLi
                 NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
             } else {
                 Log.e(TAG, "NavHostFragment not found");
+                Toast.makeText(this, "Ошибка инициализации навигации", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             Log.e(TAG, "Error setting up navigation: " + e.getMessage());
+            Toast.makeText(this, "Ошибка настройки навигации: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
         checkLocationPermission();
@@ -196,17 +202,53 @@ public class MainActivity extends AppCompatActivity implements OnRouteMapClickLi
     }
 
     @Override
-    public void onRouteMapClick() {
+    public void onRouteMapClick(GeoPoint position) {
         if (currentRoute != null) {
-            showRouteOnMap(currentRoute);
+            // Обработка клика по карте
         }
     }
 
+    @Override
+    public void onRouteMarkerClick(String routeId) {
+        // Обработка клика по маркеру
+    }
+
+    @Override
+    public void onRoutePolylineClick(String routeId) {
+        // Обработка клика по линии маршрута
+    }
+
     public void showRouteOnMap(Route route) {
-        currentRoute = route;
         if (route != null) {
-            // TODO: Implement map navigation
-            Toast.makeText(this, R.string.map_navigation_coming_soon, Toast.LENGTH_SHORT).show();
+            currentRoute = route;
+            navController.navigate(R.id.navigation_map);
+        }
+    }
+
+    public void showLandmarkDetails(Landmark landmark) {
+        if (landmark != null) {
+            LandmarkDetailsDialog dialog = LandmarkDetailsDialog.newInstance(landmark.getId());
+            dialog.show(getSupportFragmentManager(), "landmark_details");
+        }
+    }
+
+    public void showLandmarkOnMap(Landmark landmark) {
+        try {
+            if (landmark != null) {
+                // Переключаемся на вкладку карты
+                NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+                navController.navigate(R.id.navigation_map);
+
+                // Показываем маркер на карте
+                MapFragment mapFragment = (MapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.nav_host_fragment);
+                if (mapFragment != null) {
+                    mapFragment.showLandmarkOnMap(landmark);
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error showing landmark on map: " + e.getMessage());
+            Toast.makeText(this, R.string.error_showing_landmark, Toast.LENGTH_SHORT).show();
         }
     }
 } 

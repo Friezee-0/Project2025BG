@@ -1,0 +1,47 @@
+[33mcommit d09f0de861c363aa61ed883db4a79ded3cacc154[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m
+Author: Friezee-0 <egokbuc@gmail.com>
+Date:   Sun Apr 27 22:40:48 2025 +0300
+
+    Corrected resource problems in routedata.java:
+    Adjusted identifiers for the routes "Cultural Places" and "Museums"
+    Updated string resources for descriptions, duration and distances
+    Solved problems with dialogs:
+    Corrected the attribute of CardbackGroundColor in Cardview
+    Added the interface onroutemaplicklistener
+    Implemented this interface in Mainactivity
+
+[33mcommit f16ac14597a6165a2cc5001d56e4e3f0f6e462bc[m
+Author: Friezee-0 <egokbuc@gmail.com>
+Date:   Sun Apr 27 19:55:29 2025 +0300
+
+    Classes update, change in the interface of fragments and dialog windows of some application tabs. Correction of errors. Adding a new interface (so far without implementation)
+
+[33mcommit fb227c6041b7e1a19da83ed8c47cb188fbeae8d2[m
+Author: Friezee-0 <egokbuc@gmail.com>
+Date:   Wed Apr 2 22:58:01 2025 +0300
+
+    Added new marks to the map.
+
+[33mcommit a91c2d909ed815deadb0b9ebcfca6de5db569922[m
+Author: Friezee-0 <egokbuc@gmail.com>
+Date:   Wed Apr 2 22:44:48 2025 +0300
+
+    Supplement to the past commit
+
+[33mcommit 32d91a08a66f1e910444f8d60eb34babeefd678c[m
+Author: Friezee-0 <egokbuc@gmail.com>
+Date:   Wed Apr 2 22:43:20 2025 +0300
+
+    Change UI and adding new "places". Correction of code compilation errors
+
+[33mcommit 501af547f00137ed64492a35cf8f4658c6489b3a[m
+Author: Friezee-0 <egokbuc@gmail.com>
+Date:   Tue Apr 1 21:51:53 2025 +0300
+
+    Correction of code compilation errors and small changes in the interface on the "Places" tab
+
+[33mcommit 22e65b5cf8154fa47745eda3cc30ed8940c389a4[m
+Author: Friezee-0 <egokbuc@gmail.com>
+Date:   Mon Mar 31 16:58:23 2025 +0300
+
+    Initial commit

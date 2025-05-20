@@ -181,4 +181,63 @@
     <string name="museums">Museums</string>
 
     <string name="tips">Tips</string>
+
+    <string name="cultural_places_description">Route through the main cultural places of Moscow, including the Tretyakov Gallery, Bolshoi Theatre and Manege.</string>
+    <string name="cultural_places_duration">3–4 hours</string>
+    <string name="cultural_places_distance">2.5 km</string>
+    
+    <string name="museums_description">Route through the main museums of Moscow, including the Tretyakov Gallery, State Historical Museum and Manege.</string>
+    <string name="museums_duration">4–5 hours</string>
+    <string name="museums_distance">3 km</string>
+
+    <string name="welcome_message">Welcome to AudioGuide!</string>
+    <string name="app_description">Your personal guide to the most interesting places in Moscow</string>
+    <string name="continue_as_guest">Continue as guest</string>
+
+    <!-- Landmark Names -->
+    <string name="red_square_name">Red Square</string>
+    <string name="saint_basil_name">Saint Basil\'s Cathedral</string>
+    <string name="kremlin_name">Moscow Kremlin</string>
+    <string name="tretyakov_name">Tretyakov Gallery</string>
+    <string name="bolshoi_name">Bolshoi Theatre</string>
+    <string name="gum_name">GUM</string>
+    <string name="lenin_mausoleum_name">Lenin\'s Mausoleum</string>
+    <string name="alexander_garden_name">Alexander Garden</string>
+    <string name="manege_name">Manege</string>
+    <string name="historical_museum_name">Historical Museum</string>
+    <string name="kazan_cathedral_name">Kazan Cathedral</string>
+
+    <!-- Full Landmark Descriptions -->
+    <string name="red_square_full_description">Red Square is the main square of Moscow, located between the Kremlin and Kitay-gorod. It is a UNESCO World Heritage Site. The square features such famous landmarks as Saint Basil\'s Cathedral, Lenin\'s Mausoleum, State Historical Museum and GUM.</string>
+    <string name="saint_basil_full_description">Saint Basil\'s Cathedral is an Orthodox church located on Red Square. Built in 1555-1561 by order of Ivan the Terrible to commemorate the capture of Kazan. Known for its unique architecture and colorful domes.</string>
+    <string name="kremlin_full_description">The Moscow Kremlin is the oldest part of Moscow, the main socio-political and historical-artistic complex of the city. It is the official residence of the President of the Russian Federation.</string>
+    <string name="tretyakov_full_description">The Tretyakov Gallery is an art museum in Moscow, founded in 1856 by merchant Pavel Tretyakov. It contains one of the largest collections of Russian fine art in the world.</string>
+    <string name="bolshoi_full_description">The Bolshoi Theatre is one of the largest in Russia and one of the most significant opera and ballet theaters in the world. The theater building is a cultural heritage site of the peoples of Russia.</string>
+    <string name="gum_full_description">GUM (Main Universal Store) is a large shopping complex in the center of Moscow. The GUM building is a federal architectural monument.</string>
+    <string name="lenin_mausoleum_full_description">Lenin\'s Mausoleum is a memorial tomb on Red Square where Vladimir Lenin\'s body has been preserved in a transparent sarcophagus since 1924.</string>
+    <string name="alexander_garden_full_description">Alexander Garden is a park in the center of Moscow, located along the western wall of the Kremlin. It was created in 1819-1823 according to the design of architect Osip Bove.</string>
+    <string name="manege_full_description">Moscow Manege is a historical building in the center of Moscow, built in 1817 according to the design of engineer Augustin Betancourt. Currently used as an exhibition hall.</string>
+    <string name="historical_museum_full_description">The State Historical Museum is the largest national historical museum in Russia. The museum building, constructed in 1875-1883, is an architectural monument.</string>
+    <string name="kazan_cathedral_full_description">Kazan Cathedral is an Orthodox church on Red Square, built in 1625. The cathedral is a monument of 17th century architecture.</string>
+
+    <string name="my_location">My Location</string>
+    <string name="location_not_available">Location not available</string>
+
+    <!-- Novokosino Memorial -->
+    <string name="novokosino_memorial_name">Victory Memorial in Novokosino</string>
+    <string name="novokosino_memorial_short_description">Memorial with a time capsule dedicated to the Victory in the Great Patriotic War</string>
+    <string name="novokosino_memorial_full_description">A memorial with a time capsule dedicated to the Victory in the Great Patriotic War, located in the Novokosino metro area. This monument was erected in memory of the heroes of the Great Patriotic War and symbolizes the connection between generations. The time capsule embedded in the memorial contains a message to future generations and will be opened in 2045, on the 100th anniversary of the Victory. The memorial serves as an important place of remembrance and patriotic education for the residents of the district.</string>
+
+    <!-- Краткие описания достопримечательностей -->
+    <string name="red_square_marker_description">Moscow\'s main square, the historical center of the city</string>
+    <string name="saint_basil_marker_description">Unique Orthodox church with colorful domes</string>
+    <string name="kremlin_marker_description">The oldest part of Moscow, residence of the President of Russia</string>
+    <string name="gum_marker_description">Historical shopping complex</string>
+    <string name="lenin_mausoleum_marker_description">Memorial tomb on Red Square</string>
+    <string name="alexander_garden_marker_description">Park near the Kremlin walls</string>
+    <string name="manege_marker_description">Historical building and exhibition hall</string>
+    <string name="historical_museum_marker_description">Largest historical museum in Russia</string>
+    <string name="tretyakov_marker_description">Largest museum of Russian art</string>
+    <string name="bolshoi_marker_description">Legendary opera and ballet theater</string>
+    <string name="novokosino_memorial_marker_description">Memorial with a time capsule dedicated to the Victory in the Great Patriotic War</string>
 </resources> 

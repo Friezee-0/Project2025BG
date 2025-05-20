@@ -8,6 +8,10 @@ public class RouteData {
     private static final List<Route> routes = new ArrayList<>();
 
     static {
+        initializeRoutes();
+    }
+
+    private static void initializeRoutes() {
         // Исторический центр Москвы
         List<String> historicalCenterLandmarks = Arrays.asList(
             "red_square",
@@ -34,6 +38,7 @@ public class RouteData {
         );
         
         routes.add(new Route(
+            "historical_center",
             R.string.historical_center_route,
             R.string.historical_center_description,
             R.string.historical_center_duration,
@@ -62,6 +67,7 @@ public class RouteData {
         );
         
         routes.add(new Route(
+            "cultural_places",
             R.string.cultural_places,
             R.string.cultural_places_description,
             R.string.cultural_places_duration,
@@ -90,6 +96,7 @@ public class RouteData {
         );
         
         routes.add(new Route(
+            "museums",
             R.string.museums,
             R.string.museums_description,
             R.string.museums_duration,
@@ -101,5 +108,14 @@ public class RouteData {
 
     public static List<Route> getRoutes() {
         return routes;
+    }
+
+    public static Route getRouteById(String id) {
+        for (Route route : routes) {
+            if (route.getId().equals(id)) {
+                return route;
+            }
+        }
+        return null;
     }
 } 
