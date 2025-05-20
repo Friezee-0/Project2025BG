@@ -2,30 +2,30 @@
 <resources>
     <!-- App Languages -->
     <string-array name="app_languages">
-        <item>Русский</item>
         <item>English</item>
+        <item>Russian</item>
     </string-array>
     
     <string-array name="app_language_values" translatable="false">
-        <item>ru</item>
         <item>en</item>
+        <item>ru</item>
     </string-array>
     
     <!-- TTS Languages -->
     <string-array name="tts_languages">
-        <item>Русский</item>
         <item>English</item>
+        <item>Russian</item>
     </string-array>
     
     <string-array name="tts_language_values" translatable="false">
-        <item>ru</item>
         <item>en</item>
+        <item>ru</item>
     </string-array>
     
     <!-- Themes -->
     <string-array name="themes">
-        <item>Светлая</item>
-        <item>Тёмная</item>
+        <item>@string/light_theme</item>
+        <item>@string/dark_theme</item>
     </string-array>
     
     <string-array name="theme_values" translatable="false">
@@ -35,9 +35,9 @@
     
     <!-- Voices -->
     <string-array name="voices">
-        <item>По умолчанию</item>
-        <item>Мужской</item>
-        <item>Женский</item>
+        <item>Default</item>
+        <item>Male</item>
+        <item>Female</item>
     </string-array>
     
     <string-array name="voice_values" translatable="false">
