@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -128,16 +129,36 @@ public class LandmarkDetailsDialog extends DialogFragment {
 
                 // Настраиваем кнопку воспроизведения аудио
                 playAudioButton.setOnClickListener(v -> {
-                    if (!isPlaying) {
-                        String description = getString(landmark.getFullDescriptionResId());
-                        ttsService.addLandmarkText(landmark.getId(), description);
-                        ttsService.speakLandmark(landmark.getId());
-                        playAudioButton.setText(R.string.route_stop_guide);
-                        isPlaying = true;
-                    } else {
-                        ttsService.stopSpeaking();
-                        playAudioButton.setText(R.string.play_audio);
+                    try {
+                        if (!isPlaying) {
+                            String description = getString(landmark.getFullDescriptionResId());
+                            if (description != null && !description.isEmpty()) {
+                                ttsService.addLandmarkText(landmark.getId(), description);
+                                ttsService.speakLandmark(landmark.getId());
+                                playAudioButton.setText(R.string.route_stop_guide);
+                                isPlaying = true;
+                                
+                                // Добавляем проверку состояния воспроизведения
+                                new android.os.Handler().postDelayed(() -> {
+                                    if (!ttsService.isSpeaking()) {
+                                        playAudioButton.setText(R.string.play_audio);
+                                        isPlaying = false;
+                                    }
+                                }, 1000);
+                            } else {
+                                Log.e(TAG, "Empty description for landmark: " + landmark.getId());
+                                Toast.makeText(requireContext(), R.string.error_loading, Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            ttsService.stopSpeaking();
+                            playAudioButton.setText(R.string.play_audio);
+                            isPlaying = false;
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, "Error playing audio: " + e.getMessage());
+                        Toast.makeText(requireContext(), R.string.error_loading, Toast.LENGTH_SHORT).show();
                         isPlaying = false;
+                        playAudioButton.setText(R.string.play_audio);
                     }
                 });
 

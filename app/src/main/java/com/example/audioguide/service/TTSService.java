@@ -4,6 +4,7 @@ import android.content.Context;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.util.Log;
+import com.example.audioguide.SettingsManager;
 
 import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
@@ -16,6 +17,7 @@ public class TTSService {
     private String currentLandmarkId = null;
     private final ConcurrentHashMap<String, String> landmarkTexts = new ConcurrentHashMap<>();
     private Context context;
+    private boolean isInitializing = false;
 
     private TTSService(Context context) {
         this.context = context.getApplicationContext();
@@ -23,20 +25,24 @@ public class TTSService {
     }
 
     private void initTextToSpeech() {
+        if (isInitializing) {
+            Log.d(TAG, "TTS initialization already in progress");
+            return;
+        }
+        
+        isInitializing = true;
         textToSpeech = new TextToSpeech(context, status -> {
+            isInitializing = false;
             if (status == TextToSpeech.SUCCESS) {
                 isInitialized = true;
-                // Устанавливаем язык по умолчанию
-                Locale locale = new Locale("ru");
-                int result = textToSpeech.setLanguage(locale);
-                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Log.e(TAG, "Language not supported, falling back to default");
-                    textToSpeech.setLanguage(Locale.getDefault());
-                }
+                String defaultLanguage = SettingsManager.getInstance(context).getTTSLanguage();
+                updateLanguage(defaultLanguage);
                 setupUtteranceListener();
-                Log.d(TAG, "TTS initialized successfully");
+                Log.d(TAG, "TTS initialized successfully with language: " + defaultLanguage);
             } else {
                 Log.e(TAG, "TTS initialization failed with status: " + status);
+                isInitialized = false;
+                new android.os.Handler().postDelayed(this::initTextToSpeech, 1000);
             }
         });
     }
@@ -114,10 +120,20 @@ public class TTSService {
 
     public void speakLandmark(String landmarkId) {
         if (!isInitialized || textToSpeech == null) {
-            Log.e(TAG, "TTS not initialized");
+            Log.e(TAG, "TTS not initialized, attempting to reinitialize");
+            initTextToSpeech();
+            // Добавляем текст в очередь и пробуем воспроизвести после инициализации
+            new android.os.Handler().postDelayed(() -> {
+                if (isInitialized) {
+                    speakLandmarkInternal(landmarkId);
+                }
+            }, 1000);
             return;
         }
+        speakLandmarkInternal(landmarkId);
+    }
 
+    private void speakLandmarkInternal(String landmarkId) {
         String text = landmarkTexts.get(landmarkId);
         if (text != null && !landmarkId.equals(currentLandmarkId)) {
             stopSpeaking();
@@ -125,6 +141,9 @@ public class TTSService {
             int result = textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, landmarkId);
             if (result == TextToSpeech.ERROR) {
                 Log.e(TAG, "Error speaking text for landmark: " + landmarkId);
+                // Пробуем переинициализировать TTS
+                isInitialized = false;
+                initTextToSpeech();
             } else {
                 Log.d(TAG, "Started speaking for landmark: " + landmarkId);
             }

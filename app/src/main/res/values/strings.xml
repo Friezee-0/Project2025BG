@@ -244,4 +244,8 @@
     <string name="tretyakov_marker_description">Крупнейший музей русского искусства</string>
     <string name="bolshoi_marker_description">Легендарный театр оперы и балета</string>
     <string name="novokosino_memorial_marker_description">Мемориал с капсулой в честь победы в Великой Отечественной войне</string>
+
+    <string name="about_app">О приложении</string>
+    <string name="app_version">Версия приложения</string>
+    <string name="privacy_policy">Политика конфиденциальности</string>
 </resources>
